@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.font.im/css?family=Teko" rel="stylesheet">
+  <style>
+    .btn {
+      margin: 50px;
+      padding: 0 30px;
+      width: 300px;
+      height: 80px;
+      background: linear-gradient(135deg, transparent 5%, red 5%, red 95%, transparent 95%);
+      filter: drop-shadow(5px 5px 0 aqua);
+    }
+
+    .btn p {
+      line-height: 80px;
+      text-align: center;
+      font-family: 'Teko', sans-serif;
+      font-size: 50px;
+      font-weight: 1000;
+      color: black;
+      filter: drop-shadow(2px 2px 0 aqua);
+    }
+
+    .btn:hover:after {
+      --slice-0:inset(50% 50% 50% 50%);
+      --slice-1:inset(0% -6px 80% 0);
+      --slice-2:inset(0 -6px 80% 0);
+      --slice-3:inset(85% -6px 5% 0);
+      --slice-4:inset(20% -6px 50% 0);
+      --slice-5:inset(80% -6px 10% 0);
+
+      content: "ERROR WARNING !!!";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 5%, red 5%,red 95%, transparent 95%);
+      line-height: 80px;
+      text-align: center;
+      font-family: 'Teko', sans-serif;
+      font-size: 50px;
+      font-weight: 1000;
+      color: black;
+      text-shadow: -3px -3px 0 yellow, 3px 3px 0 white;
+      filter: drop-shadow(-5px -5px 0 black);
+      box-shadow: 5px 5px 0 black;
+      transform: translate(0, 0);
+      clip-path: var(--slice-0);
+      animation: shakeFlash 1s infinite;
+      animation-timing-function:steps(2,end);
+    }
+
+    @keyframes shakeFlash{
+      0%{
+        clip-path: var(--slice-0);
+        transform: translate(0 0);
+      }
+      10%{
+        clip-path: var(--slice-1);
+        transform: translate(-20px 10px);
+      }
+      20%{
+        clip-path: var(--slice-5);
+        transform: translate(-5px -10px);
+      }
+      30%{
+        clip-path: var(--slice-4);
+        transform: translate(-5px -10px);
+      }
+      40%{
+        clip-path: var(--slice-2);
+        transform: translate(-10px 5px);
+      }
+      50%{
+        clip-path: var(--slice-0);
+        transform: translate(-30px 8px);
+      }
+      55%{
+        clip-path: var(--slice-3);
+        transform: translate(-20px 0);
+      }
+      60%{
+        clip-path: var(--slice-0);
+        transform: translate(0 -10px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="btn">
+    <p>ERROR WARNING !!!</p>
+  </div>
+</body>
+
+</html>
