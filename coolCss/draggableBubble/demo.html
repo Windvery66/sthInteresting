@@ -1,0 +1,458 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>可拖动的气泡</title>
+
+<style>
+html, body {
+  padding: 0px;
+  margin: 0px;
+  background: #222;
+  font-family: 'Karla', sans-serif;
+  color: #FFF;
+  height: 100%;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+}
+
+.info {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.container {
+  border-radius: 100%;
+  width: 400px;
+  height: 400px;
+  overflow:hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: auto;
+  position: relative;
+  border: 10px solid #000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  background: #A700DD;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-animation:flyin 2s;
+          animation:flyin 2s;
+}
+.container .help {
+  position: absolute;
+  top: -40px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+.container .plane {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.container .plane .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: -13.33333px;
+}
+.container .plane .row:nth-child(even) {
+  margin-left: 50px;
+}
+.container .plane .row .icon {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: move;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 100px;
+  max-width: 100px;
+  height: 100px;
+  position: relative;
+  box-sizing: border-box;
+}
+.container .plane .row .icon:active {
+  cursor: move;
+}
+.container .plane .row .icon .draw {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 14px;
+  background: black;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 100%;
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(0.5, 0.5);
+          transform: translateX(-50%) translateY(-50%) scale(0.5, 0.5);
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.container .plane .row .icon .draw:after{
+   content: '';
+   position:absolute;
+   width:100%;
+   height:100%;
+   border-radius:100%;
+   top:50%;
+   left:50%;
+   -webkit-transform:translateX(-50%) translateY(-50%);
+           transform:translateX(-50%) translateY(-50%);
+   border:2px solid #000;
+   -webkit-transition: all 0.5s;
+   transition:all 0.5s;
+}
+.container .plane .row .icon.open{
+   z-index:1000;
+}
+.container .plane .row .icon.open .draw:after{
+   -webkit-transition: all 1s;
+   transition:all 1s;
+   width:500%;
+   height:500%;
+   background:rgba(0, 0, 0, 1);
+}
+.container .plane .row .icon .draw i {
+  font-size: 36px;
+  margin: auto;
+  display: block;
+}
+
+.container .app{
+   pointer-events:none;
+   z-index:100000;
+   opacity:0;
+   color:#FFF;
+   top:0px;
+   left:0px;
+   width:75%;
+   margin:auto;
+   font-size:28px;
+   overflow:hidden;
+   text-align:center;
+   -webkit-transition: all 0.25s;
+   transition:all 0.25s;
+}
+
+.container .app .title{
+   font-size:46px;
+   font-weight:600;
+   -webkit-transition: all 0.25s;
+   transition: all 0.25s;
+   -webkit-transition-delay:0.75s;
+           transition-delay:0.75s;
+}
+.container .app .item{
+   margin-top:10px;
+   font-weight:600;
+   position:relative;
+   width:auto;
+   overflow:hidden;
+   cursor:pointer;
+   display:inline-block;
+   left:100%;
+   opacity:0;
+   -webkit-transition: 0s;
+   transition: 0s;
+}
+.container .app .item:nth-of-type(0){
+   -webkit-transition-delay: 0.25s;
+           transition-delay: 0.25s;
+}
+.container.open .app .item{
+   -webkit-transition: all 0.25s;
+   transition:all 0.25s;
+   left:0px;
+   opacity:1;
+}
+.container.open .app .item:nth-of-type(1){
+   -webkit-transition-delay: 0.5s;
+           transition-delay: 0.5s;
+}
+.container.open .app .item:nth-of-type(2){
+   -webkit-transition-delay: 0.75s;
+           transition-delay: 0.75s;
+}
+.container.open .app .item:nth-of-type(3){
+   -webkit-transition-delay: 1s;
+           transition-delay: 1s;
+}
+.container.open .app .item:nth-of-type(4){
+   -webkit-transition-delay: 1.25s;
+           transition-delay: 1.25s;
+}
+.container.open .app .item:nth-of-type(5){
+   -webkit-transition-delay: 1.5s;
+           transition-delay: 1.5s;
+}
+
+.container .app .item:after{
+   content:"";
+   position:absolute;
+   bottom:0px;
+   left:-100%;
+   height:4px;
+   width:100%;
+   opacity:0;
+   background:#FFF;
+   -webkit-transition: all 0.25s;
+   transition:all 0.25s;
+}
+.container .app .item:hover:after{
+   left:0px;
+   opacity:1;
+}
+.container .app .close{
+   cccolor:#F22;
+}
+.container.open .app{
+   -webkit-transition: all 0.25s;
+   transition: all 0.25s;
+   -webkit-transition-delay:0.75s;
+           transition-delay:0.75s;
+   opacity:1 !important;
+   z-index:10000;
+   -webkit-transform:translateX(0px) translateY(0px);
+           transform:translateX(0px) translateY(0px);
+   pointer-events:initial;
+}
+
+@-webkit-keyframes flyin{
+   from{ -webkit-transform: translateY(200%) rotateZ(180deg); transform: translateY(200%) rotateZ(180deg); }
+}
+
+@keyframes flyin{
+   from{ -webkit-transform: translateY(200%) rotateZ(180deg); transform: translateY(200%) rotateZ(180deg); }
+}
+</style>
+
+</head>
+<body>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Karla">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+      <div class="container">
+         <div class="help">Drag me around!</div>
+         <div class="plane"></div>
+
+         <div class="app">
+            <div class="view">
+               <div class="title">TEST APP</div>
+               <div class="item">Update</div><br>
+               <div class="item">Send</div><br>
+               <div class="item">Rename</div><br>
+               <div class="item close">Exit</div>
+            </div>
+         </div>
+      </div>
+      <div class="info"></div>
+
+<script>
+//-------------------------------------------------------------------------------//
+//--------------------------------| Settings |-----------------------------------//
+//-------------------------------------------------------------------------------//
+var gridSize = 10 //10x10
+var iconList = [
+   'bluetooth', 'brightness_high', 'directions_transit', 'settings',
+   'event', 'headset', 'help', 'insert_chart', 'library_music'
+]
+//-------------------------------------------------------------------------------//
+//-------------------------------| Initialize |----------------------------------//
+//-------------------------------------------------------------------------------//
+var html = setupHTML()
+listenEvents()
+
+//Send it
+setInterval(() => {
+   updatePosition()
+   updateIconSizes()
+}, 1000/60)
+
+function setupHTML(){
+   var html = {
+      container: document.querySelector('.container'),
+      plane: document.querySelector('.plane'),
+      appClose: document.querySelector('.app .close')
+   }
+
+   for(var i = 0; i < gridSize; i++){
+      var icons = ''
+      for(var o = 0; o < gridSize; o++){
+         icons += `
+            <div class="icon">
+               <div class="draw">
+                  <i class="material-icons">${utilChoose(iconList)}</i>
+               </div>
+            </div>`
+      }
+      html.plane.innerHTML += `<div class="row">${icons}</div>`
+   }
+   html.icons = document.querySelectorAll('.icon')
+   return html
+}
+
+function listenEvents(){
+   var that = this
+   for(var i = 0; i < html.icons.length; i++){
+      html.icons[i].addEventListener('mouseup', function(e){
+         that.eventIconClick(this, e)
+      })
+   }
+   html.container.addEventListener('mousedown', function(e){ eventMouseDown(pos(e)) })
+   html.container.addEventListener('mouseup', function(e){ eventMouseUp(pos(e)) })
+   html.container.addEventListener('mouseleave', function(e){ eventMouseUp(pos(e)) })
+   html.container.addEventListener('mousemove', function(e){ eventMouseMove(pos(e)) })
+   html.appClose.addEventListener('click', function(e){ eventCloseApp() })
+}
+
+//-------------------------------------------------------------------------------//
+//---------------------------------| Events |------------------------------------//
+//-------------------------------------------------------------------------------//
+function eventMouseUp(pos){
+   if(mouse.state == 'up') return
+   mouse.state = 'up'
+}
+
+function eventMouseDown(pos){
+   mouse.state = 'down'
+   mouse.pos.offset = utilTransfer(pos)
+   mouse.pos.move = utilTransfer(pos)
+}
+
+function eventMouseMove(pos){
+   if(mouse.state === 'up') return
+   mouse.state = "move"
+
+   mouse.pos.move = utilTransfer(pos)
+}
+
+function eventIconClick(ele, event){
+   if(mouse.state === 'move') return
+   ele.classList.add('open')
+   html.container.classList.add('open')
+
+   var box = ele.getBoundingClientRect()
+   var contBox = html.container.getBoundingClientRect()
+   mouse.pos.click = {
+      x: mouse.pos.current.x - (box.left - contBox.left) + contBox.width/2 - box.width/2,
+      y: mouse.pos.current.y - (box.top - contBox.top) + contBox.height/2 - box.height/2
+   }
+}
+
+function eventCloseApp(pos){
+   html.container.classList.remove('open')
+   for(var i = 0; i < html.icons.length; i++){
+      html.icons[i].classList.remove('open')
+   }
+}
+//-------------------------------------------------------------------------------//
+//-------------------------------| Positioning |---------------------------------//
+//-------------------------------------------------------------------------------//
+var mouse = {
+   state: 'up',
+   pos: {
+      offset: {x: 0, y: 0},
+      move: {x: 0, y: 0},
+      current: {x: 0, y: 0},
+      click: {x: 0, y: 0},
+      old: {x: 0, y: 0}
+   }
+}
+
+function updatePosition(){
+   // This is going to get bumpy
+   if(mouse.state == "move"){
+      mouse.pos.current.x += mouse.pos.move.x - mouse.pos.offset.x
+      mouse.pos.current.y += mouse.pos.move.y - mouse.pos.offset.y
+      mouse.pos.offset = utilTransfer(mouse.pos.move)
+      mouse.pos.click = utilTransfer(mouse.pos.current)
+   }
+   if(mouse.state == "up"){
+      mouse.pos.current.x -= (mouse.pos.current.x - mouse.pos.click.x)/10
+      mouse.pos.current.y -= (mouse.pos.current.y - mouse.pos.click.y)/10
+   }
+
+   var transform = `translateX(${mouse.pos.current.x}px) translateY(${mouse.pos.current.y}px)`
+   html.plane.style.transform = transform
+}
+
+function updateIconSizes(){
+   for(var i = 0; i < html.icons.length; i++){
+      // position
+      var contBox = html.container.getBoundingClientRect()
+      var iconBox = html.icons[i].getBoundingClientRect()
+
+      var iconCenter = {
+         x: iconBox.left+iconBox.width/2,
+         y: iconBox.top+iconBox.height/2
+      }
+
+      var contCenter = {
+         x: contBox.left + contBox.width/2,
+         y: contBox.top + contBox.height/2
+      }
+
+      var center = {
+         x: (contCenter.x - iconCenter.x),
+         y: (contCenter.y - iconCenter.y)
+      }
+      // Max distance is 150 or contBox.width
+      var distance = Math.min(Math.floor(utilDistance({x:0, y:0}, center)), contBox.width/2)
+      var percent = Math.min((1 - distance/(contBox.width/2))*1.5, 1)
+
+      var iconDraw = html.icons[i].getElementsByClassName('draw')[0]
+
+      iconDraw.style.transform = `translateX(-50%) translateY(-50%) scale(${percent}, ${percent})`
+      iconDraw.style.opacity = percent
+   }
+}
+
+function pos(e){
+   var box = html.container.getBoundingClientRect()
+   return {
+      x: e.clientX - box.left,
+      y: e.clientY - box.top
+   }
+}
+
+//-------------------------------------------------------------------------------//
+//---------------------------------| Utility |-----------------------------------//
+//-------------------------------------------------------------------------------//
+function utilChoose(arr){
+   return arr[Math.floor(Math.random()*arr.length)]
+}
+
+function utilTransfer(obj){
+   return JSON.parse(JSON.stringify(obj))
+}
+
+function utilDistance(pos1, pos2){
+   return Math.sqrt(Math.pow((pos2.x - pos1.x),2) + Math.pow((pos2.y - pos1.y),2))
+}</script>
+
+</body>
+</html>
