@@ -1,0 +1,55 @@
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mask .titleOuter {
+  border-radius: 20px;
+  padding: 50px 10px;
+  border: 5px solid transparent;
+  box-shadow: 0 0 10px 5px transparent;
+  transition: all 0.4s ease;
+  animation-name: showTitleBorder;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+.mask .titleOuter .title {
+  font-size: 100px;
+  color: transparent;
+  font-family: "coke";
+  filter: drop-shadow(0px 0px 20px #ffffff);
+  transition: all 0.4s ease;
+  transform: scale(1.5);
+  animation-name: showTitle;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes showTitle {
+  0% {
+    color: transparent;
+    transform: scale(3);
+  }
+  100% {
+    color: #ffffff;
+    transform: scale(1);
+  }
+}
+@keyframes showTitleBorder {
+  0% {
+    border: 5px solid transparent;
+    box-shadow: 0 0 10px 5px transparent;
+    transform: scale(3);
+  }
+  100% {
+    border: 5px solid #ffffff;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+    transform: scale(1);
+  }
+}

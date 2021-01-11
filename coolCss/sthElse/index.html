@@ -8,7 +8,9 @@
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
   <div id="loading"  class="animate__animated" style="animation-duration: 1s;">
-    <div id="loadingRing"></div>
+    <div id="loadingRingOuter">
+      <div id="loadingRingInner"></div>
+    </div>
     <p id="progressBar1">LOADING 0.00%</p>
     <p id="progressBar2" style="clip-path:inset(0 100% 0 0 round 5vh)">LOADING 0.00%</p>
   </div>
@@ -16,7 +18,7 @@
     #loading {
       width: 100vw;
       height: 100vh;
-      background: rgb(100, 100, 100);
+      background: #faa638;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -25,18 +27,23 @@
       left: 0;
       z-index: 1000;
     }
-    #loadingRing{
+    #loadingRingOuter{
       position: fixed;
       top: calc(30% - 100px);
       left: calc(50% - 100px);
       width: 200px;
       height: 200px;
-      background: conic-gradient(aqua 0%,orange 10%,transparent 50%,transparent 100%,aqua 100%);
+      filter: drop-shadow(5px 5px 20px rgba(153, 9, 9, 0.8));
+      animation: loadingRotate 3s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    #loadingRingInner{
+      width: 200px;
+      height: 200px;
+      background: conic-gradient(#94ff1a 0%,#ffd82a 10%,transparent 50%,transparent 100%,#94ff1a 100%);
       mask: radial-gradient(transparent 90px, #000 90px);
       -webkit-mask: radial-gradient(transparent 90px, #000 90px);
       border-radius: 50%;
-      animation: loadingRotate 3s linear infinite;
-      transform-origin: 50% 50%;
     }
   
     @keyframes loadingRotate {
@@ -60,23 +67,37 @@
       width: 90vw;
       height: 10vh;
       line-height: 10vh;
-      border-radius: 5vh;
-      background: midnightblue;
+      border-radius: 6vh;
+      background: orange;
+      border: 10px solid orange;
+      box-shadow: 5px 5px 20px 0px rgba(243, 22, 22, 0.6);
     }
   
     #progressBar2 {
       position: fixed;
       width: 90vw;
       text-align: center;
-      color: black;
+      color: #da1b1b;
       font-size: 50px;
       font-weight: 800;
       height: 10vh;
       line-height: 10vh;
       border-radius: 5vh;
-      background: aqua;
+      background: linear-gradient(135deg,#ffd82a 4.76%,#94ff1a 4.76%,#94ff1a 14.28%,#ffd82a 14.28%,#ffd82a 23.8%,#94ff1a 23.8%,#94ff1a 33.32%,#ffd82a 33.32%,#ffd82a 42.84%,#94ff1a 42.84%,#94ff1a 52.36%,#ffd82a 52.36%,#ffd82a 61.88%,#94ff1a 61.88%,#94ff1a 71.4%,#ffd82a 71.4%,#ffd82a 80.92%,#94ff1a 80.92%,#94ff1a 90.44%,#ffd82a 90.44%);
+      background-repeat: repeat;
       overflow: hidden;
+      box-shadow: 0px -20px 30px 0px rgba(243, 22, 22, 0.568) inset;
       transition: all .5s linear;
+      animation: progressBar 2s linear infinite;
+    }
+
+    @keyframes progressBar {
+      0%{
+        background-position-x: 0px;
+      }
+      100%{
+        background-position-x: 90vw;
+      }
     }
   </style>
   
@@ -91,7 +112,7 @@
   var loadingEl2 = document.getElementById("progressBar2");
   loadingEl1.innerText = "LOADING 10.00%";
   loadingEl2.innerText = "LOADING 10.00%";
-  loadingEl2.style.cssText = "clip-path:inset(0 90% 0 0 round 5vh)";
+  loadingEl2.style.cssText = "clip-path:inset(0 10% 0 0 round 5vh)";
 </script>
 
 </html>
