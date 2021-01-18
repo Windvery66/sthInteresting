@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="./indexStatic/aaa.ico">
+  <link rel="stylesheet" href="./indexStatic/reset.css">
+  <title>Hellow World</title>
+  <div id="loading" style="display: none;">
+    <div id="loadingRoom">
+      <div id="loadingRingOuter">
+        <div id="loadingRingInner"></div>
+      </div>
+      <p id="progressText">LOADING </p>
+      <p id="progressTextNumber">0.00%</p>
+    </div>
+  </div>
+
+  <style>
+    body{
+      background-color: #000;
+    }
+
+    @font-face {
+      font-family: "digital-figure";
+      src: url("./indexStatic/CursedTimerUlil-Aznm.ttf")
+    }
+
+    @font-face {
+      font-family: "digital";
+      src: url("./indexStatic/Digital7-1e1Z.ttf")
+    }
+
+    @keyframes closeLoading {
+      0%{
+        overflow: hidden;
+        box-shadow: 0 0 5px 5px #ffffff inset;
+      }
+      30%{
+        overflow: hidden;
+        top: 50%;
+        left: 0%;
+        width: 100vw;
+        height: 2px;
+        box-shadow: 0 0 10px 10px #ffffff inset;
+      }
+      100%{
+        overflow: hidden;
+        width: 2px;
+        height: 2px;
+        top: 50%;
+        left: 50%;
+        box-shadow: 0 0 20px 20px #ffffff inset;
+      }
+    }
+
+    @keyframes closeFlash {
+      0%{
+        opacity: 1;
+      }
+      10%{
+        opacity: .2;
+      }
+      20%{
+        opacity: 1;
+      }
+      70%{
+        opacity: 0;
+      }
+      80%{
+        opacity: .7;
+      }
+      90%{
+        opacity: .2;
+      }
+      100%{
+        opacity: 1;
+      }
+    }
+
+    #loading {
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      background-image: url("./indexStatic/bg.gif");
+      background-size: 20%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transform-style: preserve-3d;
+      perspective: 15.6vw;
+      /* 禁止鼠标选中 */
+      -moz-user-select: -moz-none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    #loadingRoom {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      animation: pulse 10s linear infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        transform: rotateX(10deg) rotateY(-16deg) rotateZ(27deg) translate3d(-0.26vw, 6.6vw, 4.7vw) scale(1);
+      }
+      50%{
+        transform: rotateX(12deg) rotateY(-14deg) rotateZ(25deg) translate3d(-0.26vw, 6.6vw, 4.7vw) scale(1.05);
+      }
+      100%{
+        transform: rotateX(10deg) rotateY(-16deg) rotateZ(27deg) translate3d(-0.26vw, 6.6vw, 4.7vw) scale(1);
+      }
+    }
+    #loadingRingOuter {
+      position: fixed;
+      top: 10%;
+      left: 38%;
+      width: 23.4vw;
+      height: 23.4vw;
+      filter: drop-shadow(5px 5px 2px rgba(160, 175, 255, 0.8));
+      /* mask: conic-gradient(transparent 2%, #000 2%, #000 4%, transparent 4%, transparent 6%, #000 6%, #000 8%, transparent 8%, transparent 10%, #000 10%, #000 12%, transparent 12%, transparent 14%, #000 14%, #000 16%, transparent 16%, transparent 18%, #000 18%, #000 20%, transparent 20%, transparent 22%, #000 22%, #000 24%, transparent 24%, transparent 26%, #000 26%, #000 28%, transparent 28%, transparent 30%, #000 30%, #000 32%, transparent 32%, transparent 34%, #000 34%, #000 36%, transparent 36%, transparent 38%, #000 38%, #000 40%, transparent 40%, transparent 42%, #000 42%, #000 44%, transparent 44%, transparent 46%, #000 46%, #000 48%, transparent 48%, transparent 50%, #000 50%, #000 52%, transparent 52%, transparent 54%, #000 54%, #000 56%, transparent 56%, transparent 58%, #000 58%, #000 60%, transparent 60%, transparent 62%, #000 62%, #000 64%, transparent 64%, transparent 66%, #000 66%, #000 68%, transparent 68%, transparent 70%, #000 70%, #000 72%, transparent 72%, transparent 74%, #000 74%, #000 76%, transparent 76%, transparent 78%, #000 78%, #000 80%, transparent 80%, transparent 82%, #000 82%, #000 84%, transparent 84%, transparent 86%, #000 86%, #000 88%, transparent 88%, transparent 90%, #000 90%, #000 92%, transparent 92%, transparent 94%, #000 94%, #000 96%, transparent 96%, transparent 98%, #000 98%, #000 100%, transparent 100%);
+      -webkit-mask: conic-gradient(transparent 2%, #000 2%, #000 4%, transparent 4%, transparent 6%, #000 6%, #000 8%, transparent 8%, transparent 10%, #000 10%, #000 12%, transparent 12%, transparent 14%, #000 14%, #000 16%, transparent 16%, transparent 18%, #000 18%, #000 20%, transparent 20%, transparent 22%, #000 22%, #000 24%, transparent 24%, transparent 26%, #000 26%, #000 28%, transparent 28%, transparent 30%, #000 30%, #000 32%, transparent 32%, transparent 34%, #000 34%, #000 36%, transparent 36%, transparent 38%, #000 38%, #000 40%, transparent 40%, transparent 42%, #000 42%, #000 44%, transparent 44%, transparent 46%, #000 46%, #000 48%, transparent 48%, transparent 50%, #000 50%, #000 52%, transparent 52%, transparent 54%, #000 54%, #000 56%, transparent 56%, transparent 58%, #000 58%, #000 60%, transparent 60%, transparent 62%, #000 62%, #000 64%, transparent 64%, transparent 66%, #000 66%, #000 68%, transparent 68%, transparent 70%, #000 70%, #000 72%, transparent 72%, transparent 74%, #000 74%, #000 76%, transparent 76%, transparent 78%, #000 78%, #000 80%, transparent 80%, transparent 82%, #000 82%, #000 84%, transparent 84%, transparent 86%, #000 86%, #000 88%, transparent 88%, transparent 90%, #000 90%, #000 92%, transparent 92%, transparent 94%, #000 94%, #000 96%, transparent 96%, transparent 98%, #000 98%, #000 100%, transparent 100%); */
+      mask: conic-gradient(transparent 2%, #000 2%, #000 2.5%, transparent 2.5%, transparent 4.5%, #000 4.5%, #000 5%, transparent 5%, transparent 7%, #000 7%, #000 7.5%, transparent 7.5%, transparent 9.5%, #000 9.5%, #000 10%, transparent 10%, transparent 12%, #000 12%, #000 12.5%, transparent 12.5%, transparent 14.5%, #000 14.5%, #000 15%, transparent 15%, transparent 17%, #000 17%, #000 17.5%, transparent 17.5%, transparent 19.5%, #000 19.5%, #000 20%, transparent 20%, transparent 22%, #000 22%, #000 22.5%, transparent 22.5%, transparent 24.5%, #000 24.5%, #000 25%, transparent 25%, transparent 27%, #000 27%, #000 27.5%, transparent 27.5%, transparent 29.5%, #000 29.5%, #000 30%, transparent 30%, transparent 32%, #000 32%, #000 32.5%, transparent 32.5%, transparent 34.5%, #000 34.5%, #000 35%, transparent 35%, transparent 37%, #000 37%, #000 37.5%, transparent 37.5%, transparent 39.5%, #000 39.5%, #000 40%, transparent 40%, transparent 42%, #000 42%, #000 42.5%, transparent 42.5%, transparent 44.5%, #000 44.5%, #000 45%, transparent 45%, transparent 47%, #000 47%, #000 47.5%, transparent 47.5%, transparent 49.5%, #000 49.5%, #000 50%, transparent 50%, transparent 52%, #000 52%, #000 52.5%, transparent 52.5%, transparent 54.5%, #000 54.5%, #000 55%, transparent 55%, transparent 57%, #000 57%, #000 57.5%, transparent 57.5%, transparent 59.5%, #000 59.5%, #000 60%, transparent 60%, transparent 62%, #000 62%, #000 62.5%,transparent 62.5%,transparent 64.5%, #000 64.5%, #000 65%, transparent 65%, transparent 67%, #000 67%, #000 67.5%, transparent 67.5%, transparent 69.5%, #000 69.5%, #000 70%, transparent 70%, transparent 72%, #000 72%, #000 72.5%, transparent 72.5%, transparent 74.5%, #000 74.5%, #000 75%, transparent 75%, transparent 77%, #000 77%, #000 77.5%, transparent 77.5%, transparent 79.5%, #000 79.5%, #000 80%, transparent 80%, transparent 82%, #000 82%, #000 82.5%, transparent 82.5%, transparent 84.5%, #000 84.5%, #000 85%, transparent 85%, transparent 87%, #000 87%, #000 87.5%, transparent 87.5%, transparent 89.5%, #000 89.5%, #000 90%, transparent 90%, transparent 92%, #000 92%, #000 92.5%, transparent 92.5%, transparent 94.5%, #000 94.5%, #000 95%, transparent 95%, transparent 97%, #000 97%, #000 97.5%, transparent 97.5%, transparent 99.5%, #000 99.5%, #000 100%, transparent 100%);
+      -webkit-mask: conic-gradient(transparent 2%, #000 2%, #000 2.5%, transparent 2.5%, transparent 4.5%, #000 4.5%, #000 5%, transparent 5%, transparent 7%, #000 7%, #000 7.5%, transparent 7.5%, transparent 9.5%, #000 9.5%, #000 10%, transparent 10%, transparent 12%, #000 12%, #000 12.5%, transparent 12.5%, transparent 14.5%, #000 14.5%, #000 15%, transparent 15%, transparent 17%, #000 17%, #000 17.5%, transparent 17.5%, transparent 19.5%, #000 19.5%, #000 20%, transparent 20%, transparent 22%, #000 22%, #000 22.5%, transparent 22.5%, transparent 24.5%, #000 24.5%, #000 25%, transparent 25%, transparent 27%, #000 27%, #000 27.5%, transparent 27.5%, transparent 29.5%, #000 29.5%, #000 30%, transparent 30%, transparent 32%, #000 32%, #000 32.5%, transparent 32.5%, transparent 34.5%, #000 34.5%, #000 35%, transparent 35%, transparent 37%, #000 37%, #000 37.5%, transparent 37.5%, transparent 39.5%, #000 39.5%, #000 40%, transparent 40%, transparent 42%, #000 42%, #000 42.5%, transparent 42.5%, transparent 44.5%, #000 44.5%, #000 45%, transparent 45%, transparent 47%, #000 47%, #000 47.5%, transparent 47.5%, transparent 49.5%, #000 49.5%, #000 50%, transparent 50%, transparent 52%, #000 52%, #000 52.5%, transparent 52.5%, transparent 54.5%, #000 54.5%, #000 55%, transparent 55%, transparent 57%, #000 57%, #000 57.5%, transparent 57.5%, transparent 59.5%, #000 59.5%, #000 60%, transparent 60%, transparent 62%, #000 62%, #000 62.5%,transparent 62.5%,transparent 64.5%, #000 64.5%, #000 65%, transparent 65%, transparent 67%, #000 67%, #000 67.5%, transparent 67.5%, transparent 69.5%, #000 69.5%, #000 70%, transparent 70%, transparent 72%, #000 72%, #000 72.5%, transparent 72.5%, transparent 74.5%, #000 74.5%, #000 75%, transparent 75%, transparent 77%, #000 77%, #000 77.5%, transparent 77.5%, transparent 79.5%, #000 79.5%, #000 80%, transparent 80%, transparent 82%, #000 82%, #000 82.5%, transparent 82.5%, transparent 84.5%, #000 84.5%, #000 85%, transparent 85%, transparent 87%, #000 87%, #000 87.5%, transparent 87.5%, transparent 89.5%, #000 89.5%, #000 90%, transparent 90%, transparent 92%, #000 92%, #000 92.5%, transparent 92.5%, transparent 94.5%, #000 94.5%, #000 95%, transparent 95%, transparent 97%, #000 97%, #000 97.5%, transparent 97.5%, transparent 99.5%, #000 99.5%, #000 100%, transparent 100%);
+    }
+
+    #loadingRingInner {
+      width: 23.4vw;
+      height: 23.4vw;
+      background-image: conic-gradient(transparent 0%, #f834ff 30%, rgba(64, 233, 255, 0.596) 50%, transparent 70%);
+      mask: radial-gradient(transparent 8.3vw, #000 8.3vw);
+      -webkit-mask: radial-gradient(transparent 8.3vw, #000 8.3vw);
+      border-radius: 50%;
+      animation: loadingRotate 5s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes loadingRotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(-180deg);
+      }
+
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
+
+    #progressText {
+      position: fixed;
+      top: 23%;
+      left: 43%;
+      color: white;
+      font-family: 'digital';
+      font-size: 5vw;
+      font-weight: bolder;
+      text-shadow: 5px 5px 10px #36d0ff86;
+    }
+
+    #progressTextNumber {
+      width: 24.5vw;
+      text-align: center;
+      position: fixed;
+      top: 35%;
+      left: 38%;
+      color: white;
+      font-family: 'digital-figure'; 
+      font-size: 5.2vw;
+      font-weight: bolder;
+      text-shadow: 5px 5px 10px #36d0ff86;
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+<script>
+  document.getElementById("loading").style.cssText = "";
+</script>
+
+</html>

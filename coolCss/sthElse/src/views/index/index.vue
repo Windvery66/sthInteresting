@@ -1,9 +1,10 @@
 <template>
   <div id="index">
-    <showTitle title="松果痰抖五连鞭"/>
-    <div class="index" style="height:100vh;overflow:hidden">
-      <img src="@/assets/bg.jpeg" alt="" style="width:100%;height:100%">
+    <showTitle title="松果痰抖五连鞭" style="display:none"/>
+    <div class="index">
+      <img src="@/assets/123.png" alt=""  style="opacity:0">
     </div>
+    <img id="player" src="@/assets/bbb.png" alt="">
   </div>
 </template>
 
@@ -41,4 +42,7 @@ export default {
   flex-shrink: 0;
   width: 600px;
 }
+</style>
+<style lang="less" scoped>
+@import "./index.less";
 </style>

@@ -22,12 +22,8 @@ export default {
   color: #2c3e50;
   cursor: url("./assets/aaa.ico"), auto;
 }
-@font-face {
-  font-family: "coke";
-  src: url("./assets/Coca-Cola.ttf");
-}
+
 </style>
 <style >
-@import url("./utils/reset.css");
 @import url("./utils/animate.min.css");
 </style>

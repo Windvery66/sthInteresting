@@ -1,47 +1,36 @@
 var showLoading = ()=>{
-  var loadingEl1 = document.getElementById("progressBar1");
-  var loadingEl2 = document.getElementById("progressBar2");
+  var loadingElSpan = document.getElementById("progressTextNumber");
+  var loadingEl = document.getElementById("loading");
   var imgs = [...document.getElementsByTagName("IMG")];
   var imgCount = 0;
   imgs.forEach((element) => {
     var img = new Image();
 
     img.onload = () => {
-      imgCount = loadCallBack(loadingEl1,loadingEl2,imgCount,imgs);
+      imgCount = loadCallBack(loadingEl,loadingElSpan,imgCount,imgs);
     };
 
     img.onerror = () => {
-      imgCount = loadCallBack(loadingEl1,loadingEl2,imgCount,imgs);
+      imgCount = loadCallBack(loadingEl,loadingElSpan,imgCount,imgs);
     };
 
     img.src = element.src;
   });
 }
 
-var loadCallBack = (loadingEl1,loadingEl2,imgCount,imgs)=>{
+var loadCallBack = (loadingEl,loadingElSpan,imgCount,imgs)=>{
   imgCount++;
-  loadingEl1.innerText = "LOADING " + ((imgCount / imgs.length) * 90 + 10).toFixed(2) + "%";
-  loadingEl2.innerText = "LOADING " + ((imgCount / imgs.length) * 90 + 10).toFixed(2) + "%";
-  loadingEl2.style.cssText = "clip-path:inset(0px " + ((1-(imgCount / imgs.length)) * 90) + "% 0px 0px round 5vh)";
+  loadingElSpan.innerText = ((imgCount / imgs.length) * 100).toFixed(2) + "%";
   if (imgCount == imgs.length) {
-    setTimeout(() => {
-      document.getElementById("loading").classList.add("animate__fadeOut");
-      setTimeout(() => {
-        document.body.style.cssText = ""
-        document.getElementById("loading").style.cssText = "display:none";
-      }, 1000)
-    }, 500)
-  } else {
-    setTimeout(() => {
-      loadingEl1.innerText = "LOADING 100%";
-      loadingEl2.innerText = "LOADING 100%";
-      loadingEl2.style.cssText = "clip-path:inset(0px 0 0px 0 round 5vh)";
-      document.getElementById("loading").classList.add("animate__fadeOut");
-      setTimeout(() => {
-        document.body.style.cssText = ""
-        document.getElementById("loading").style.cssText = "display:none";
-      }, 1000)
-    }, 10000)
+    setTimeout(()=>{
+      loadingEl.style.cssText = "animation:closeFlash .5s linear";
+      setTimeout(()=>{
+        loadingEl.style.cssText = "animation:closeLoading .5s linear;animation-fill-mode:forwards";
+        setTimeout(()=>{
+          loadingEl.style.cssText = "display:none"
+        },500)
+      },500)
+    },1000)
   }
   return imgCount;
 }
