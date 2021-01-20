@@ -172,6 +172,15 @@ body {
   transform-origin: center center;
   transform-style: preserve-3d;
   transition: transform 1s;
+  /* animation: aaa 10s infinite; */
+}
+@keyframes aaa {
+  0%{
+    transform: rotate3d(1,1,1,45deg);
+  }
+  100%{
+    transform: rotate3d(1,1,1,-145deg);
+  }
 }
 .dice .box {
   transform-style: preserve-3d;

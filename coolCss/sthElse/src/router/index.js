@@ -8,7 +8,7 @@ const routes = [
   path: '/',
   name: 'index',
   component: () =>
-      import( /* webpackChunkName: "page" */ '@/views/index/index'),
+      import( /* webpackChunkName: "index" */ '@/views/index/index'),
   meta: {},
 }
 ]

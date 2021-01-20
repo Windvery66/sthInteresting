@@ -26,4 +26,5 @@ export default {
 </style>
 <style >
 @import url("./utils/animate.min.css");
+@import url("./utils/common.css");
 </style>

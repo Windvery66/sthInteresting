@@ -1,0 +1,99 @@
+#dice {
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  z-index: 10;
+  transform-style: preserve-3d;
+  perspective: 5rem;
+}
+#dice .dice {
+  position: relative;
+  transform-style: preserve-3d;
+  width: 1rem;
+  height: 1rem;
+  transition: all 1s ease;
+  transform-origin: center center;
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
+}
+#dice .dice.dice_1 {
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
+}
+#dice .dice.dice_1 .diceFace:nth-child(1) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(126, 243, 214, 0.7);
+}
+#dice .dice.dice_2 {
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(80deg);
+}
+#dice .dice.dice_2 .diceFace:nth-child(2) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
+}
+#dice .dice.dice_3 {
+  transform: rotateX(20deg) rotateY(10deg) rotateZ(60deg);
+}
+#dice .dice.dice_3 .diceFace:nth-child(3) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
+}
+#dice .dice.dice_4 {
+  transform: rotateX(-160deg) rotateY(-20deg) rotateZ(110deg);
+}
+#dice .dice.dice_4 .diceFace:nth-child(4) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
+}
+#dice .dice.dice_5 {
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(-100deg);
+}
+#dice .dice.dice_5 .diceFace:nth-child(5) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
+}
+#dice .dice.dice_6 {
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
+}
+#dice .dice.dice_6 .diceFace:nth-child(6) {
+  background-color: rgba(0, 92, 104, 0.7);
+  box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
+}
+#dice .dice .diceFace {
+  font-family: 'digital-figure';
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  background-image: linear-gradient(transparent, rgba(0, 92, 104, 0.7));
+  text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
+  box-shadow: 0 0 10px rgba(173, 255, 234, 0.7) inset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 1s ease;
+}
+#dice .dice .diceFace p {
+  color: rgba(208, 255, 243, 0.9);
+  font-size: 1rem;
+  margin-top: 0.1rem;
+}
+#dice .dice .diceFace:nth-child(1) {
+  transform: rotateX(90deg) translateZ(0.55rem) rotateZ(180deg);
+}
+#dice .dice .diceFace:nth-child(1) p {
+  margin-right: 0.5rem;
+}
+#dice .dice .diceFace:nth-child(2) {
+  transform: rotateY(90deg) translateZ(0.55rem) rotateZ(-90deg);
+}
+#dice .dice .diceFace:nth-child(3) {
+  transform: rotateZ(90deg) translateZ(0.55rem) rotateZ(180deg);
+}
+#dice .dice .diceFace:nth-child(4) {
+  transform: rotateZ(-90deg) translateZ(-0.55rem) rotateX(180deg);
+}
+#dice .dice .diceFace:nth-child(5) {
+  transform: rotateY(-90deg) translateZ(0.55rem) rotateZ(90deg);
+}
+#dice .dice .diceFace:nth-child(6) {
+  transform: rotateX(90deg) translateZ(-0.55rem) rotateY(180deg) rotateZ(180deg);
+}

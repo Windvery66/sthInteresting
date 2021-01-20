@@ -4,6 +4,10 @@
   overflow: hidden;
   perspective: 500px;
   transform-style: preserve-3d;
+  background-image: url("../../assets/bg.jpeg");
+  background-size: 120% 100%;
+  background-position: 20% 0%;
+  filter: blur(2px) brightness(50%) saturate(200%);
 }
 .index img {
   width: 200%;

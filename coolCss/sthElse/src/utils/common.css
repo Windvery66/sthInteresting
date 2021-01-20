@@ -1,0 +1,25 @@
+html{
+  font-size: 5.208vw ;
+}
+
+@font-face {
+  font-family: "tec";
+  src: url("../assets/fontStyle/Audiowide-Regular.ttf")
+}
+
+@font-face {
+  font-family: "coke";
+  src: url("../assets/fontStyle/Coca-Cola.ttf")
+}
+
+@keyframes pulsate{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.05);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

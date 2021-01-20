@@ -1,33 +1,35 @@
 <template>
   <div id="index">
-    <showTitle title="松果痰抖五连鞭" style="display:none"/>
+    <dice />
+    <showTitle title="开始" v-show="false"/>
     <div class="index">
-      <img src="@/assets/123.png" alt=""  style="opacity:0">
+      <img src="@/assets/123.png" alt="" style="opacity: 0" />
     </div>
-    <img id="player" src="@/assets/bbb.png" alt="">
+    <img id="player" src="@/assets/bbb.png" alt="" />
+    <img style="position:fixed" src="https://thumbs.gfycat.com/PinkPiercingBull-size_restricted.gif" alt="">
+    <img style="position:fixed" src="https://thumbs.gfycat.com/WhiteTangibleIndianspinyloach-size_restricted.gif" alt="">
+    <img style="position:fixed" src="https://thumbs.gfycat.com/PinkPiercingBull-size_restricted.gif" alt="">
   </div>
 </template>
 
 <script>
-import {showLoading} from "@/utils/loading.js";
+import { showLoading } from "@/utils/loading.js";
 import showTitle from "@/components/showTitle/showTitle.vue";
+import dice from "@/components/dice/dice.vue";
 export default {
   data() {
     return {};
   },
-  created() {
-
-  },
+  created() {},
   mounted() {
-    showLoading()
+    showLoading();
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {},
-  components:{
-    showTitle
-  }
+  components: {
+    showTitle,
+    dice,
+  },
 };
 </script>
 
