@@ -1,7 +1,5 @@
 #dice {
   position: fixed;
-  top: 30%;
-  left: 30%;
   z-index: 10;
   transform-style: preserve-3d;
   perspective: 5rem;
@@ -11,9 +9,9 @@
   transform-style: preserve-3d;
   width: 1rem;
   height: 1rem;
-  transition: all 1s ease;
+  transition: all 0.3s linear;
   transform-origin: center center;
-  transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
+  transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
 }
 #dice .dice.dice_1 {
   transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
@@ -96,4 +94,66 @@
 }
 #dice .dice .diceFace:nth-child(6) {
   transform: rotateX(90deg) translateZ(-0.55rem) rotateY(180deg) rotateZ(180deg);
+}
+#dice .rollBtns {
+  position: absolute;
+  bottom: -150%;
+  left: -110%;
+  display: flex;
+}
+#dice .rollBtns .rollBtn {
+  min-width: 1rem;
+  min-height: 0.5rem;
+  background-color: transparent;
+  margin: 0.1rem;
+  transition: all 0.1s linear;
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.5);
+}
+#dice .rollBtns .rollBtn:hover {
+  text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
+}
+#dice .rollBtns .rollBtn:hover .cnText {
+  color: #fff8;
+}
+#dice .rollBtns .rollBtn:hover .enText {
+  color: #fff8;
+}
+#dice .rollBtns .rollBtn .cnText {
+  font-family: "coke";
+  font-size: 0.45rem;
+  color: #fff3;
+  background: linear-gradient(#03ffc0, #ff4bff);
+  background-clip: text;
+}
+#dice .rollBtns .rollBtn .enText {
+  font-family: "tec";
+  font-size: 0.2rem;
+  color: #fff3;
+  background: linear-gradient(#03ffc0, #ff4bff);
+  background-clip: text;
+}
+#dice .rollBtnsNumber {
+  position: absolute;
+  bottom: -250%;
+  left: -140%;
+  display: flex;
+}
+#dice .rollBtnsNumber .rollBtn {
+  width: 0.45rem;
+  height: 0.45rem;
+  background-color: transparent;
+  line-height: 0.45rem;
+  text-align: center;
+  margin: 0.1rem;
+  font-family: "digital-figure";
+  font-size: 0.45rem;
+  color: #fff3;
+  background: linear-gradient(rgba(3, 255, 192, 0.9), rgba(255, 75, 255, 0.3));
+  background-clip: text;
+  transition: all 0.1s linear;
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.5);
+}
+#dice .rollBtnsNumber .rollBtn:hover {
+  text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
+  color: #fff8;
 }

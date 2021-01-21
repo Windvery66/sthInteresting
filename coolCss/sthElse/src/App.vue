@@ -20,7 +20,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  cursor: url("./assets/aaa.ico"), auto;
+  cursor: url("./assets/aaa.ico"),auto;
 }
 
 </style>

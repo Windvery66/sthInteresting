@@ -1,7 +1,5 @@
 #dice {
   position: fixed;
-  top: 30%;
-  left: 30%;
   z-index: 10;
   transform-style: preserve-3d;
   perspective: 5rem;
@@ -11,54 +9,61 @@
     transform-style: preserve-3d;
     width: 1rem;
     height: 1rem;
-    transition: all 1s ease;
+    transition: all 0.3s linear;
     transform-origin: center center;
-    transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
+    transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
+
 
     &.dice_1 {
       transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
-      .diceFace:nth-child(1){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(1) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(126, 243, 214, 0.7);
       }
     }
 
     &.dice_2 {
       transform: rotateX(110deg) rotateY(-30deg) rotateZ(80deg);
-      .diceFace:nth-child(2){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(2) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
       }
     }
 
     &.dice_3 {
       transform: rotateX(20deg) rotateY(10deg) rotateZ(60deg);
-      .diceFace:nth-child(3){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(3) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
       }
     }
 
     &.dice_4 {
       transform: rotateX(-160deg) rotateY(-20deg) rotateZ(110deg);
-      .diceFace:nth-child(4){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(4) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
       }
     }
 
     &.dice_5 {
       transform: rotateX(110deg) rotateY(-30deg) rotateZ(-100deg);
-      .diceFace:nth-child(5){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(5) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
       }
     }
 
     &.dice_6 {
       transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
-      .diceFace:nth-child(6){
-        background-color: rgba(0, 92, 104,.7);
+
+      .diceFace:nth-child(6) {
+        background-color: rgba(0, 92, 104, .7);
         box-shadow: 0 0 0.1rem 0.03rem rgba(173, 255, 234, 0.7);
       }
     }
@@ -78,6 +83,7 @@
       top: 0;
       left: 0;
       transition: all 1s ease;
+
       p {
         color: rgba(208, 255, 243, 0.9);
         font-size: 1rem;
@@ -113,14 +119,76 @@
       }
     }
   }
+
+  .rollBtns {
+    position: absolute;
+    bottom: -150%;
+    left: -110%;
+    display: flex;
+
+    .rollBtn {
+      min-width: 1rem;
+      min-height: .5rem;
+      background-color: transparent;
+      margin: 0.1rem;
+      transition: all .1s linear;
+      text-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
+
+        .cnText {
+          color: #fff8;
+        }
+
+        .enText {
+          color: #fff8;
+        }
+      }
+
+      .cnText {
+        font-family: "coke";
+        font-size: 0.45rem;
+        color: #fff3;
+        background: linear-gradient(rgb(3, 255, 192), rgb(255, 75, 255));
+        background-clip: text;
+      }
+
+      .enText {
+        font-family: "tec";
+        font-size: 0.2rem;
+        color: #fff3;
+        background: linear-gradient(rgb(3, 255, 192), rgb(255, 75, 255));
+        background-clip: text;
+      }
+    }
+  }
+
+  .rollBtnsNumber {
+    position: absolute;
+    bottom: -250%;
+    left: -140%;
+    display: flex;
+
+    .rollBtn {
+      width: 0.45rem;
+      height: 0.45rem;
+      background-color: transparent;
+      line-height: 0.45rem;
+      text-align: center;
+      margin: 0.1rem;
+      font-family: "digital-figure";
+      font-size: 0.45rem;
+      color: #fff3;
+      background: linear-gradient(rgba(3, 255, 192, 0.9), rgba(255, 75, 255, 0.3));
+      background-clip: text;
+      transition: all .1s linear;
+      text-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
+        color: #fff8;
+      }
+    }
+  }
 }
-
-
-// @keyframes diceTurning{
-//   0%{
-//     transform: rotate3d(1, 1, 1, 0deg);
-//   }
-//   100%{
-//     transform: rotate3d(1, 1, 1, 360deg);
-//   }
-// }
