@@ -1,14 +1,20 @@
 <template>
   <div id="index">
-    <dice style="top:40%;left:45%"/>
+    <!-- 骰子 -->
+    <dice style="top:60%;right:20%" @rollingDone="getRolling"/>
+    <!-- 标题 -->
     <showTitle title="开始" v-show="false"/>
-    <div class="index">
-      <img src="@/assets/123.png" alt="" style="opacity: 0" />
+    <!-- 大地图 -->
+    <div id="map">
+      <img src="@/assets/123.png" alt="" :style="'transform: rotateX(23deg) rotateY(8deg) rotateZ(-23deg) translate3d('+(stepX+29)+'%, '+(stepY-87)+'%, 3rem)'"/>
     </div>
-    <img id="player" src="@/assets/bbb.png" style="opacity: 0" alt="" />
-    <img style="position:fixed" src="https://thumbs.gfycat.com/PinkPiercingBull-size_restricted.gif" alt="">
-    <img style="position:fixed" src="https://thumbs.gfycat.com/WhiteTangibleIndianspinyloach-size_restricted.gif" alt="">
-    <img style="position:fixed" src="https://thumbs.gfycat.com/PinkPiercingBull-size_restricted.gif" alt="">
+    <!-- 小地图 -->
+    <div id="smallMap">
+      <img class="map" src="@/assets/123.png" alt="" :style="'transform: translate3d('+(stepX+50)+'%, '+(stepY-50)+'%,0)'"/>
+      <img class="player" src="@/assets/bbb.png" alt="" />
+    </div>
+    <!-- 玩家 -->
+    <img id="player" src="@/assets/bbb.png" alt="" />
   </div>
 </template>
 
@@ -18,14 +24,27 @@ import showTitle from "@/components/showTitle/showTitle.vue";
 import dice from "@/components/dice/dice.vue";
 export default {
   data() {
-    return {};
+    return {
+      stepNumber:0,//步数
+      stepX:0,//x坐标
+      stepY:0,//y坐标
+    };
   },
   created() {},
   mounted() {
     showLoading();
   },
   computed: {},
-  methods: {},
+  methods: {
+    getRolling(number){
+      var that = this;
+      setTimeout(()=>{
+      that.stepNumber = number;
+      that.stepX-=number*2;
+      that.stepY+=number*2;
+      },500)
+    }
+  },
   components: {
     showTitle,
     dice,

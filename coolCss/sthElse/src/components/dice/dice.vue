@@ -75,6 +75,7 @@ export default {
             clearInterval(this.rolling);
             this.rolling = null;
             this.number = num || Math.floor(Math.random() * 6 + 1);
+            this.$emit("rollingDone",this.number)
             }
         },
         reset() {
