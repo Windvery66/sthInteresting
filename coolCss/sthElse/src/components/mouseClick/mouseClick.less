@@ -1,0 +1,120 @@
+.mouseClick{
+  position: fixed;
+  width: 1.5rem;
+  height: 1.5rem;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  pointer-events: none;
+  .mouseClickInner{
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-size: 1.5rem 1.5rem;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    animation: showClick linear 0.7s;
+    &.inner{
+      -webkit-mask-image:url(../../assets/code.png);
+      mask-image:url(../../assets/code.png);
+      background-position: center center;
+    }
+    &.outerTop{
+      transform: rotateZ(-90deg) translateX(0.42rem);
+      -webkit-mask-image:url(../../assets/electronic2.svg);
+      mask-image:url(../../assets/electronic2.svg);
+      background-position: 0.38rem 1rem;
+    }
+    &.outerLeft{
+      transform: rotateZ(-90deg)  translateY(-0.48rem);
+      -webkit-mask-image:url(../../assets/electronic1.svg);
+      mask-image:url(../../assets/electronic1.svg);
+      background-position: 1rem 1.48rem;
+    }
+    &.outerRight{
+      transform: rotateZ(90deg)  translateY(-0.48rem);
+      -webkit-mask-image:url(../../assets/electronic1.svg);
+      mask-image:url(../../assets/electronic1.svg);
+      background-position: 1rem 1.48rem;
+    }
+    &.outerBottom{
+      transform: rotateZ(90deg)  translateX(0.42rem);
+      -webkit-mask-image:url(../../assets/electronic2.svg);
+      mask-image:url(../../assets/electronic2.svg);
+      background-position: 0.38rem 1rem;
+    }
+  }
+}
+
+@keyframes showClick {
+  0%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 0%,transparent 0%);
+    opacity: 1;
+  }
+  5%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 5%,transparent 10%);
+  }
+  10%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 10%,transparent 15%);
+  }
+  15%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 15%,transparent 20%);
+  }
+  20%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 20%,transparent 25%);
+  }
+  25%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 25%,transparent 30%);
+  }
+  30%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 30%,transparent 35%);
+  }
+  35%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 35%,transparent 40%);
+  }
+  40%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 40%,transparent 45%);
+  }
+  45%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 45%,transparent 50%);
+  }
+  50%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255) 50%,transparent 55%);
+  }
+  55%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.9) 55%,transparent 60%);
+  }
+  60%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.8) 60%,transparent 65%);
+  }
+  65%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.7) 65%,transparent 70%);
+  }
+  70%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.6) 70%,transparent 75%);
+  }
+  75%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.5) 75%,transparent 80%);
+  }
+  80%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.4) 80%,transparent 85%);
+  }
+  85%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.3) 85%,transparent 90%);
+  }
+  90%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.2) 90%,transparent 95%);
+  }
+  95%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.1) 95%,transparent 100%);
+  }
+  100%{
+    background-image: radial-gradient(transparent ,rgba(58, 255, 255,.0) 100%,transparent 105%);
+    opacity: 0;
+  }
+}
