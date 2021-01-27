@@ -35,3 +35,72 @@ html{
     transform: scale(1);
   }
 }
+
+@keyframes bgFlow {
+  0%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 0%, transparent 20%);
+    opacity: 0;
+  }
+  5%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 5%, transparent 25%);
+  }
+  10%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 10%, transparent 30%);
+  }
+  15%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 15%, transparent 35%);
+  }
+  20%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 20%, transparent 40%);
+  }
+  25%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 25%, transparent 45%);
+  }
+  30%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 30%, transparent 50%);
+  }
+  35%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 35%, transparent 55%);
+  }
+  40%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 40%, transparent 60%);
+  }
+  45%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 45%, transparent 65%);
+  }
+  50%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 50%, transparent 70%);
+    opacity: .5;
+  }
+  55%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 55%, transparent 75%);
+  }
+  60%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 60%, transparent 80%);
+  }
+  65%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 65%, transparent 85%);
+  }
+  70%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 70%, transparent 90%);
+  }
+  75%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 75%, transparent 95%);
+  }
+  80%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 80%, transparent 100%);
+  }
+  85%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 85%, transparent 105%);
+  }
+  90%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 90%, transparent 110%);
+  }
+  95%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 95%, transparent 115%);
+  }
+  100%{
+    background-image: linear-gradient(90deg,transparent 0%,aqua 100%, transparent 120%);
+    opacity: 0;
+  }
+}

@@ -1,11 +1,11 @@
 <template>
   <div id="index">
-    <!-- 菜单 -->
-    <gameMenu/>
+    <!-- 首屏菜单 -->
+    <gameMenu v-if="false"/>
     <!-- 鼠标点击特效 -->
     <mouseClick/>
     <!-- 骰子 -->
-    <dice style="top:60%;right:20%" @rollingDone="getRolling" v-if="false"/>
+    <dice style="top:50%;right:30%" @rollingDone="getRolling" v-if="false"/>
     <!-- 标题 -->
     <showTitle title="开始" v-show="false"/>
     <!-- 大地图 -->
@@ -19,6 +19,8 @@
     </div>
     <!-- 玩家 -->
     <img id="player" src="@/assets/bbb.png" alt="" />
+    <!-- 五行球(辅助菜单) -->
+    <fiveBall style="bottom:0.3rem;left:0.3rem" />
   </div>
 </template>
 
@@ -28,6 +30,7 @@ import showTitle from "@/components/showTitle/showTitle.vue";
 import dice from "@/components/dice/dice.vue";
 import mouseClick from "@/components/mouseClick/mouseClick.vue";
 import gameMenu from "@/components/gameMenu/gameMenu.vue";
+import fiveBall from "@/components/fiveBall/fiveBall.vue";
 export default {
   data() {
     return {
@@ -55,7 +58,8 @@ export default {
     showTitle,
     dice,
     mouseClick,
-    gameMenu
+    gameMenu,
+    fiveBall
   },
 };
 </script>

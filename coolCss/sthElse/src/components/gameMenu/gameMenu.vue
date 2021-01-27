@@ -1,15 +1,22 @@
 <template>
-  <div id="gameMenu">
-    <button>11111</button>
-    <button>22222</button>
-    <button>33333</button>
+  <div id="gameMenu" v-if="show">
+    <button @click="go">go</button>
 
   </div>
 </template>
 
 <script>
 export default {
-
+  data(){
+    return{
+      show:true
+    }
+  },
+  methods:{
+    go(){
+      this.show = false
+    }
+  }
 }
 </script>
 

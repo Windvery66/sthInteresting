@@ -1,0 +1,324 @@
+#fiveBall {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  transform-style: preserve-3d;
+  perspective: 3rem;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 0 #fff8);
+  transition: all 1s ease;
+}
+#fiveBall:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0.1rem 0.05rem #fff8);
+}
+#fiveBall .bg {
+  width: 300%;
+  height: 200%;
+  backdrop-filter: blur(0.1rem);
+  transform: rotateZ(20deg) translate3d(-3rem, 1rem, 0);
+  -webkit-mask-image: url("../../assets/elebg.svg");
+  mask-image: url("../../assets/elebg.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 1.1rem -0.92rem;
+  mask-position: 1.1rem -0.92rem;
+  animation: bgFlow 2s linear infinite;
+}
+#fiveBall .mainBall {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateX(30deg) rotateY(15deg) translateZ(1rem);
+  filter: hue-rotate(0deg);
+}
+#fiveBall .mainBall .mainBallCenter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+#fiveBall .mainBall .colorInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+#fiveBall .mainBall .darkLightOuter {
+  width: 100%;
+  height: 100%;
+  transform: translateY(-0.2rem);
+  z-index: 3;
+  filter: hue-rotate(10deg);
+}
+#fiveBall .mainBall .darkLightOuter .colorInner {
+  background-image: conic-gradient(aqua 0%, #0994bec0 5%, transparent 30%, transparent 50%, aqua 50%, #0994bec0 55%, transparent 80%);
+  mask: radial-gradient(transparent 64%, black 64%);
+  -webkit-mask: radial-gradient(transparent 35%, black 40%, transparent 40%, transparent 64%, black 64%);
+  animation: rotateReverse 2.5s linear infinite;
+}
+#fiveBall .mainBall .lightOuter {
+  width: 80%;
+  height: 80%;
+  transform: translateY(0.3rem);
+  z-index: 0;
+  filter: hue-rotate(-10deg);
+}
+#fiveBall .mainBall .lightOuter .colorInner {
+  background-image: conic-gradient(aqua 0%, #0994bec0 5%, transparent 25%, transparent 33.33%, aqua 33.33%, #0994bec0 38.33%, transparent 50%, transparent 66.66%, aqua 66.66%, #0994bec0 71.66%, transparent 100%);
+  mask: radial-gradient(transparent 64%, black 64%);
+  -webkit-mask: radial-gradient(transparent 55%, black 60%, transparent 60%, transparent 64%, black 64%);
+  animation: rotateReverse 3.5s linear infinite;
+  opacity: 0.8;
+}
+#fiveBall .mainBall .darkLightInner {
+  width: 70%;
+  height: 70%;
+  transform: translateY(-0.7rem);
+  z-index: 5;
+  filter: hue-rotate(20deg);
+}
+#fiveBall .mainBall .darkLightInner .colorInner {
+  background-image: conic-gradient(transparent 20%, #0994bec0 30%, aqua 33.33%, transparent 33.33%, transparent 53.33%, #0994bec0 63.33%, aqua 66.66%, transparent 66.66%, transparent 86.66%, #0994bec0 96.66%, aqua 100%);
+  mask: radial-gradient(transparent 64%, black 64%);
+  -webkit-mask: radial-gradient(transparent 64%, black 64%);
+  animation: rotate 1.5s linear infinite;
+  opacity: 0.5;
+}
+#fiveBall .mainBall .lightInner {
+  width: 40%;
+  height: 40%;
+  transform: translateY(0.8rem);
+  z-index: -1;
+  filter: hue-rotate(-20deg);
+}
+#fiveBall .mainBall .lightInner .colorInner {
+  background-image: conic-gradient(transparent 30%, #0994bec0 40%, aqua 50%, transparent 50%, transparent 80%, #0994bec0 90%, aqua 100%);
+  mask: radial-gradient(transparent 64%, black 64%);
+  -webkit-mask: radial-gradient(transparent 47%, black 50%, transparent 50%, transparent 64%, black 64%);
+  animation: rotate 2s linear infinite;
+  opacity: 0.3;
+}
+#fiveBall .mainBall .YinYang {
+  width: 80%;
+  height: 80%;
+  background-image: radial-gradient(aqua 10%, transparent);
+  -webkit-mask-image: url("../../assets/yinyang.svg");
+  mask-image: url("../../assets/yinyang.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  animation: rotate 5s linear infinite;
+}
+#fiveBall .ballItems {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -0.5rem;
+  left: 0.3rem;
+}
+#fiveBall .ballItems .ballItem {
+  width: 0.5rem;
+  height: 0.5rem;
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  border: 0.01rem transparent solid;
+  overflow: hidden;
+  filter: drop-shadow(0 0 0.1rem #fff8);
+}
+#fiveBall .ballItems .ballItem .ballItemInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+#fiveBall .ballItems .ballItem.metal {
+  animation: itemRotate1 6s ease-in-out infinite;
+}
+#fiveBall .ballItems .ballItem.metal .ballItemInner {
+  background-image: radial-gradient(#fad921 10%, transparent);
+  mask: url("../../assets/metal.svg") center center no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../../assets/metal.svg") center center no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+#fiveBall .ballItems .ballItem.wood {
+  animation: itemRotate2 5.5s ease-in-out infinite;
+}
+#fiveBall .ballItems .ballItem.wood .ballItemInner {
+  background-image: radial-gradient(#159e15 10%, transparent);
+  mask: url("../../assets/wood.svg") center center no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../../assets/wood.svg") center center no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+#fiveBall .ballItems .ballItem.water {
+  animation: itemRotate3 5s ease-in-out infinite;
+}
+#fiveBall .ballItems .ballItem.water .ballItemInner {
+  background-image: radial-gradient(#2ab1ff 10%, transparent);
+  mask: url("../../assets/water.svg") center center no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../../assets/water.svg") center center no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+#fiveBall .ballItems .ballItem.fire {
+  animation: itemRotate4 4.5s ease-in-out infinite;
+}
+#fiveBall .ballItems .ballItem.fire .ballItemInner {
+  background-image: radial-gradient(#ff2600 10%, transparent);
+  mask: url("../../assets/fire.svg") center center no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../../assets/fire.svg") center center no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+#fiveBall .ballItems .ballItem.earth {
+  animation: itemRotate5 4s ease-in-out infinite;
+}
+#fiveBall .ballItems .ballItem.earth .ballItemInner {
+  background-image: radial-gradient(#a727c7 10%, transparent);
+  mask: url("../../assets/earth.svg") center center no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../../assets/earth.svg") center center no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+@keyframes itemInnerRotate {
+  0% {
+    transform: translateX(-2rem);
+  }
+  100% {
+    transform: translateX(0.5rem);
+  }
+}
+@keyframes itemRotate1 {
+  0% {
+    top: 0;
+    left: -0.4rem;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    top: 2rem;
+    left: 2rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: -0.4rem;
+  }
+}
+@keyframes itemRotate2 {
+  0% {
+    top: 2rem;
+    left: 0.7rem;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    top: -1rem;
+    left: 0.7rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 2rem;
+    left: 0.7rem;
+  }
+}
+@keyframes itemRotate3 {
+  0% {
+    top: -0.5rem;
+    left: 1.5rem;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    top: 2rem;
+    left: -0.5rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: -0.5rem;
+    left: 1.5rem;
+  }
+}
+@keyframes itemRotate4 {
+  0% {
+    top: 0.2rem;
+    left: 1.5rem;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    top: 1.2rem;
+    left: -0.7rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 0.2rem;
+    left: 1.5rem;
+  }
+}
+@keyframes itemRotate5 {
+  0% {
+    top: 0.5rem;
+    left: -0.2rem;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    top: 1.2rem;
+    left: 1.6rem;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 0.5rem;
+    left: -0.2rem;
+  }
+}
+@keyframes rotateReverse {
+  0% {
+    transform: rotateZ(360deg) scale(1);
+  }
+  100% {
+    transform: rotateZ(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotateZ(0deg) scale(1);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg) scale(1);
+  }
+  50% {
+    transform: rotateZ(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotateZ(360deg) scale(1);
+  }
+}

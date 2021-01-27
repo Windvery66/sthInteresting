@@ -22,8 +22,8 @@
   animation: showClick linear 0.7s;
 }
 .mouseClick .mouseClickInner.inner {
-  -webkit-mask-image: url(../../assets/code.png);
-  mask-image: url(../../assets/code.png);
+  -webkit-mask-image: url(../../assets/code_cheats.png);
+  mask-image: url(../../assets/code_cheats.png);
   background-position: center center;
 }
 .mouseClick .mouseClickInner.outerTop {
