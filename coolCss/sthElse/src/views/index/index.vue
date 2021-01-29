@@ -5,7 +5,7 @@
     <!-- 鼠标点击特效 -->
     <mouseClick/>
     <!-- 骰子 -->
-    <dice style="top:50%;right:30%" @rollingDone="getRolling" v-if="false"/>
+    <dice style="top:60%;right:10%" @rollingDone="getRolling" />
     <!-- 标题 -->
     <showTitle title="开始" v-show="false"/>
     <!-- 大地图 -->
@@ -20,7 +20,9 @@
     <!-- 玩家 -->
     <img id="player" src="@/assets/bbb.png" alt="" />
     <!-- 五行球(辅助菜单) -->
-    <fiveBall style="bottom:0.3rem;left:0.3rem" />
+    <fiveBall />
+    <!-- 菜单单元卡片 -->
+    <itemcard style="position:absolute;left:20%;top:20%;"/>
   </div>
 </template>
 
@@ -31,6 +33,8 @@ import dice from "@/components/dice/dice.vue";
 import mouseClick from "@/components/mouseClick/mouseClick.vue";
 import gameMenu from "@/components/gameMenu/gameMenu.vue";
 import fiveBall from "@/components/fiveBall/fiveBall.vue";
+import itemcard from "@/components/itemcard/itemcard.vue";
+
 export default {
   data() {
     return {
@@ -59,7 +63,8 @@ export default {
     dice,
     mouseClick,
     gameMenu,
-    fiveBall
+    fiveBall,
+    itemcard
   },
 };
 </script>

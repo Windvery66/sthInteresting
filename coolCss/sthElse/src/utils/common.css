@@ -24,6 +24,16 @@ html{
   src: url("../assets/fontStyle/Coca-Cola.ttf")
 }
 
+/* @font-face {
+  font-family: "digital-figure";
+  src: url("./indexStatic/CursedTimerUlil-Aznm.ttf")
+}
+
+@font-face {
+  font-family: "digital";
+  src: url("./indexStatic/Digital7-1e1Z.ttf")
+} */
+
 @keyframes pulsate{
   0%{
     transform: scale(1);
