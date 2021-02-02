@@ -1,6 +1,6 @@
 <template>
   <div id="character">
-    <div class="character" v-for="(item,index) in characterShadows" :key="index" :style="'animation-delay:0.'+ index +'s;opacity:'+ (1-(index/5)) +';z-index:'+(6-index)">
+    <div class="character" v-for="(item,index) in characterShadows" :key="index" :style="'animation-delay:'+ (index*index)/30 +'s;opacity:'+ (1-(index/5)) +';z-index:'+(6-index)">
       <div class="head" :style="'animation-delay:0.'+ index +'s;'"></div>
       <div class="bodyTop" :style="'animation-delay:0.'+ index +'s;'"></div>
       <div class="bodyBottom" :style="'animation-delay:0.'+ index +'s;'"></div>

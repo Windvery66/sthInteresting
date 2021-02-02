@@ -8,7 +8,7 @@
   top: 0;
   left: 0;
   filter: sepia(100%) hue-rotate(180deg) drop-shadow(0 0 0.1rem #fff8) saturate(2);
-  animation: aaa 7s ease-in-out infinite;
+  animation: aaa 10s ease-in-out infinite;
 }
 #character .character .head {
   position: absolute;
