@@ -66,9 +66,9 @@ export default {
     closeCards(){
       this.$refs.fiveBall.style.cssText = "";
       this.$refs.cards.style.cssText = "";
-      setTimeout(()=>{
+      // setTimeout(()=>{
         this.showCards = false;
-      },1000)
+      // },1000)
     }
   }
 }

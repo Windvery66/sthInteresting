@@ -1,0 +1,162 @@
+#character{
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  .character{
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: sepia(100%) hue-rotate(180deg) drop-shadow(0 0 0.1rem #fff8) saturate(2);
+    animation: aaa 7s ease-in-out infinite;
+    .head{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1rem;
+      height: 1rem;
+      background-image: url(../../assets/ava.png);
+      background-size: 100% 100%;
+      z-index: 10;
+    }
+    .bodyTop{
+      position: absolute;
+      top: 0.8rem;
+      left: 0.25rem;
+      width: 0.5rem;
+      height: 0.8rem;
+      background-color: yellow;
+      z-index: 9;
+    }
+    .bodyBottom{
+      position: absolute;
+      top: 1.6rem;
+      left: 0.25rem;
+      width: 0.5rem;
+      height: 0.8rem;
+      background-color: red;
+      animation: bbb 3s linear infinite;
+
+      z-index: 8;
+    }
+    .armLeftFront{
+      position: absolute;
+      top: 0.5rem;
+      left: -0.8rem;
+      width: 1rem;
+      height: 0.5rem;
+      background-color: blue;
+      animation: ccc 3s linear infinite;
+
+      z-index: 7;
+    }
+    .armLeftBehind{
+      position: absolute;
+      top:1.8rem;
+      left: 0.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: green;
+      animation: ccc 8s linear infinite;
+
+      z-index: 6;
+    }
+    .armRightFront{
+      position: absolute;
+      top: 2.8rem;
+      left: 0.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: gray;
+      animation: ccc 8s linear infinite;
+
+      z-index: 5;
+    }
+    .armRightBehind{
+      position: absolute;
+      top: 3.8rem;
+      left: 0.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: orange;
+      z-index: 4;
+      animation: bbb 5s linear infinite;
+
+    }
+    .legLeftFront{
+      position: absolute;
+      top: 0.8rem;
+      left: 2.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: aqua;
+      animation: ccc 8s linear infinite;
+
+      z-index: 3;
+    }
+    .legLeftBehind{
+      position: absolute;
+      top: 0.8rem;
+      left: 1.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: purple;
+      z-index: 2;
+      animation: bbb 5s linear infinite;
+
+    }
+    .legRightFront{
+      position: absolute;
+      top: 0.8rem;
+      left: 4.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: pink;
+      z-index: 1;
+      animation: ccc 8s linear infinite;
+
+    }
+    .legRightBehind{
+      position: absolute;
+      top: 1.8rem;
+      left: 1.25rem;
+      width: 0.5rem;
+      height: 1rem;
+      background-color: brown;
+      z-index: 0;
+      animation: bbb 5s linear infinite;
+    }
+    &:first-child{
+      filter: none;
+    }
+  }
+}
+
+@keyframes aaa {
+  0%{
+    transform: translateX(0);
+  }
+  50%{
+    transform: translateX(10rem);
+  }
+  100%{
+    transform: translateX(0);
+  }
+}
+
+@keyframes bbb {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ccc {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-360deg);
+  }
+}

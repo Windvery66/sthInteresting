@@ -23,6 +23,8 @@
     <fiveBall />
     <!-- 菜单单元卡片 -->
     <itemcard style="position:absolute;left:20%;top:20%;"/>
+    <!-- 玩家(战斗形象) -->
+    <character/>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ import mouseClick from "@/components/mouseClick/mouseClick.vue";
 import gameMenu from "@/components/gameMenu/gameMenu.vue";
 import fiveBall from "@/components/fiveBall/fiveBall.vue";
 import itemcard from "@/components/itemcard/itemcard.vue";
-
+import character from "@/components/character/character.vue";
 export default {
   data() {
     return {
@@ -64,7 +66,8 @@ export default {
     mouseClick,
     gameMenu,
     fiveBall,
-    itemcard
+    itemcard,
+    character
   },
 };
 </script>
