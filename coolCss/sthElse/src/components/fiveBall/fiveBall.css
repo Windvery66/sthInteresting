@@ -8,12 +8,12 @@
   perspective: 3rem;
   opacity: 0.7;
   filter: drop-shadow(0 0.05rem 0.03rem #fff8);
-  transition: all 1.5s ease-in;
+  transition: all 1s ease-in;
   transform: scale(0.8);
 }
 #fiveBall:hover {
   opacity: 1;
-  filter: drop-shadow(0 0.1rem 0.05rem #fff8);
+  filter: drop-shadow(0 0.1rem 0.05rem #fffc);
 }
 #fiveBall .bg {
   width: 300%;

@@ -39,37 +39,38 @@
     </div> -->
   </div>
   <div id="cards" ref="cards" v-show="showCards">
-    <div class="cardItem" v-for="(item,index) in cardsList" :key="index">
-      {{item}}
-    </div>
+    <prizeBox  amount="10" />
     <button class="cardClose" @click="closeCards">close</button>
   </div>
 </div>
 </template>
 
 <script>
+import prizeBox from "@/components/prizeBox/prizeBox.vue";
 export default {
   data(){
     return{
       showCards:false,
-      cardsList:[0,1,2,3,4,5,6,7,8,9]
     }
   },
   methods:{
     drawCards(){
-      this.$refs.fiveBall.style.cssText = "transform:scale(5) translateX(5rem) translateY(-3rem);filter: drop-shadow(0 0 0.5rem #fff8) blur(0.5rem);opacity:0;";
+      this.$refs.fiveBall.style.cssText = "transform:scale(2) translateX(4rem) translateY(-2rem);filter: drop-shadow(0 0 0.5rem #fff8) blur(0.5rem);opacity:0;";
       this.showCards = true;
       setTimeout(()=>{
-        this.$refs.cards.style.cssText = ""
-      },500)
+        this.$refs.cards.style.cssText = "opacity:1;"
+      },200)
     },
     closeCards(){
       this.$refs.fiveBall.style.cssText = "";
       this.$refs.cards.style.cssText = "";
-      // setTimeout(()=>{
+      setTimeout(()=>{
         this.showCards = false;
-      // },1000)
+      },1000)
     }
+  },
+  components:{
+    prizeBox
   }
 }
 </script>

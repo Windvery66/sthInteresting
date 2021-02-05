@@ -1,5 +1,5 @@
 #dice {
-  position: fixed;
+  position: absolute;
   z-index: 10;
   transform-style: preserve-3d;
   perspective: 5rem;
@@ -12,7 +12,6 @@
     transition: all 0.3s linear;
     transform-origin: center center;
     transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
-
 
     &.dice_1 {
       transform: rotateX(110deg) rotateY(-30deg) rotateZ(170deg);
@@ -77,7 +76,7 @@
       border-radius: 0.2rem;
       background-image: linear-gradient(transparent, rgba(0, 92, 104, 0.7));
       text-shadow: 0 0 0.1rem rgba(202, 255, 242, 0.9);
-      box-shadow: 0 0 10px rgba(173, 255, 234, 0.7) inset;
+      box-shadow: 0 0 0.1rem rgba(173, 255, 234, 0.7) inset;
       // backdrop-filter: blur (2px); //backdrop-filter与父元素的animation冲突,原因未知,但是父元素的transform可以正常显示(可能和translateZ有关)
       position: absolute;
       top: 0;

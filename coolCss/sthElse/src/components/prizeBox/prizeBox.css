@@ -1,0 +1,59 @@
+.prizeBox {
+  position: absolute;
+  z-index: 10;
+  transform-style: preserve-3d;
+  perspective: 8rem;
+}
+.prizeBox .prizeBoxItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transform-style: preserve-3d;
+  width: 1rem;
+  height: 1rem;
+  transition: all 0.3s linear;
+  transform-origin: center center;
+}
+.prizeBox .prizeBoxItem .prizeBoxFace {
+  font-family: 'tec';
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  background-image: linear-gradient(transparent, rgba(0, 92, 104, 0.7));
+  box-shadow: 0 0 0.1rem rgba(173, 255, 234, 0.7) inset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 1s ease;
+}
+.prizeBox .prizeBoxItem .prizeBoxFace p {
+  color: transparent;
+  -webkit-text-stroke: 0.02rem #fff8;
+  text-shadow: 0 0 0.1rem #fff5;
+  font-size: 1rem;
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(1) {
+  transform: rotateX(90deg) translateZ(0.55rem) rotateZ(180deg);
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(1) p {
+  margin-right: 0.5rem;
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(2) {
+  transform: rotateY(90deg) translateZ(0.55rem) rotateZ(-90deg);
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(3) {
+  transform: rotateZ(90deg) translateZ(0.55rem) rotateZ(180deg);
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(4) {
+  transform: rotateZ(-90deg) translateZ(-0.55rem) rotateX(180deg);
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(5) {
+  transform: rotateY(-90deg) translateZ(0.55rem) rotateZ(90deg);
+}
+.prizeBox .prizeBoxItem .prizeBoxFace:nth-child(6) {
+  transform: rotateX(90deg) translateZ(-0.55rem) rotateY(180deg) rotateZ(180deg);
+}

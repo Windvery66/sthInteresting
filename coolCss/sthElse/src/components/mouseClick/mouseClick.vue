@@ -42,7 +42,7 @@ export default {
                       }
                     },800)
               })
-            });
+            },false);
         },
     },
 };
