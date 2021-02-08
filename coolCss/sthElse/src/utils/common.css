@@ -118,3 +118,16 @@ html{
     opacity: 0;
   }
 }
+
+
+@keyframes whirl{
+  0%{
+    transform: rotateZ(0deg) scale(1);
+  }
+  50%{
+    transform: rotateZ(180deg) scale(1.1);
+  }
+  100%{
+    transform: rotateZ(360deg) scale(1);
+  }
+}

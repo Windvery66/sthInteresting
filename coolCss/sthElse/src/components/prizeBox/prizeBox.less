@@ -1,67 +1,315 @@
-.prizeBox{
+.prizeBox {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 10;
   transform-style: preserve-3d;
   perspective: 8rem;
-  .prizeBoxItem{
+
+  .getTenTimes {
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-origin: center center;
+    animation: outerWhirl 30s linear infinite;
+    &.active{
+      animation-play-state:paused;
+      .prizeBoxPosition{
+        width: 100%;
+        height: 100%;
+        top: 0;
+        transform-origin: center center;
+      }
+    }
+    .prizeBoxPosition {
+      position: absolute;
+      width: 50%;
+      height: 30%;
+      top: 40%;
+      transition: all 1s ease;
+      transform-style: preserve-3d;
+      transform-origin: right center;
+
+      &:hover,&.active {
+        .prizeBoxItem {
+          width: 1.5rem;
+          height: 1.5rem;
+          box-shadow: 0 0 1rem 0.3rem aqua, 0 0 1rem 0.1rem aqua inset;
+
+          .prizeBoxFace {
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: rgba(255, 0, 234, 0.521);
+            background-image: linear-gradient(transparent, rgba(5, 146, 165, 0.7));
+
+            p {
+              font-size: 1.5rem;
+              -webkit-text-stroke: 0.1rem #fff;
+              text-shadow: 0 0 1rem aqua;
+            }
+
+            &:nth-child(1) {
+              transform: rotateX(90deg) translateZ(1rem) rotateZ(180deg);
+            }
+
+            &:nth-child(2) {
+              transform: rotateY(90deg) translateZ(1rem) rotateZ(-90deg);
+            }
+
+            &:nth-child(3) {
+              transform: rotateZ(90deg) translateZ(1rem) rotateZ(180deg);
+            }
+
+            &:nth-child(4) {
+              transform: rotateZ(-90deg) translateZ(-1rem) rotateX(180deg);
+            }
+
+            &:nth-child(5) {
+              transform: rotateY(-90deg) translateZ(1rem) rotateZ(90deg);
+            }
+
+            &:nth-child(6) {
+              transform: rotateX(90deg) translateZ(-1rem) rotateY(180deg) rotateZ(180deg);
+            }
+          }
+        }
+      }
+
+      .prizeBoxItem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        transform-style: preserve-3d;
+        width: 1rem;
+        height: 1rem;
+        transition: all 0.3s linear;
+        transform: rotateX(110deg) rotateY(-30deg) rotateZ(-10deg);
+        transform-origin: center center;
+        animation: innerWhirl 1s linear infinite forwards;
+        .prizeBoxFace {
+          font-family: 'tec';
+          width: 1rem;
+          height: 1rem;
+          background-color: transparent;
+          border-radius: 0.2rem;
+          background-image: linear-gradient(rgba(92, 193, 252, 0.5), rgba(53, 231, 255, 0.1));
+          box-shadow: 0 0 0.1rem rgba(173, 255, 234, 0.7) inset;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all 1s ease;
+
+          p {
+            color: transparent;
+            -webkit-text-stroke: 0.02rem #fff8;
+            text-shadow: 0 0 0.1rem #fff5;
+            font-size: 1rem;
+            transition: all 1s ease;
+          }
+
+          &:nth-child(1) {
+            transform: rotateX(90deg) translateZ(0.55rem) rotateZ(180deg);
+          }
+
+          &:nth-child(2) {
+            transform: rotateY(90deg) translateZ(0.55rem) rotateZ(-90deg);
+          }
+
+          &:nth-child(3) {
+            transform: rotateZ(90deg) translateZ(0.55rem) rotateZ(180deg);
+          }
+
+          &:nth-child(4) {
+            transform: rotateZ(-90deg) translateZ(-0.55rem) rotateX(180deg);
+          }
+
+          &:nth-child(5) {
+            transform: rotateY(-90deg) translateZ(0.55rem) rotateZ(90deg);
+          }
+
+          &:nth-child(6) {
+            transform: rotateX(90deg) translateZ(-0.55rem) rotateY(180deg) rotateZ(180deg);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes outerWhirl {
+  0% {
+    transform: rotateX(0deg) rotateY(20deg) rotateZ(0deg);
+  }
+
+  50% {
+    transform: rotateX(540deg) rotateY(40deg) rotateZ(900deg);
+  }
+
+  100% {
+    transform: rotateX(1080deg) rotateY(20deg) rotateZ(1800deg);
+  }
+}
+
+@keyframes innerWhirl {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+
+.selectAll{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  margin: auto;
+  z-index: 100;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  -webkit-text-stroke: rgb(117, 255, 255) 0.02rem;
+  text-shadow: 0 0 0.1rem rgba(17, 255, 235, 0.664);
+  transition: all 0.5s ease;
+  &:hover{
+    text-shadow: 0 0 0.2rem aqua;
+    .off{
+      transform: scale(1.2);
+    }
+  }
+  .cnText{
+    font-size: 1rem;
+    font-family: 'coke';
+    color: transparent;
+  }
+  .enText{
+    font-size: 0.8rem;
+    font-family: "tec";
+    color: transparent;
+  }
+  .off{
     position: absolute;
+    top: 0;
+    right: -1.5rem;
+    font-size: 0.2rem;
+    font-family: "tec";
+    padding: 0.1rem;
+    color: #fff;
+    -webkit-text-stroke:0;
+    background-color: green;
+    transition: all .3s ease;
+    &::after{
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      left: -0.2rem;
+      border-top: 0.2rem solid green;
+      border-left: 0.2rem solid transparent;
+    }
+  }
+}
+
+.itemList{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0,0,255,.1);
+  .prizeItemList{
+    position: absolute;
+    width: 80%;
+    height: 60%;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-    transform-style: preserve-3d;
-    width: 1rem;
-    height: 1rem;
-    transition: all 0.3s linear;
-    transform-origin: center center;
-    .prizeBoxFace {
-      font-family: 'tec';
-      width: 1rem;
-      height: 1rem;
-      background-color: transparent;
-      border-radius: 0.2rem;
-      background-image: linear-gradient(transparent, rgba(0, 92, 104, 0.7));
-      box-shadow: 0 0 0.1rem rgba(173, 255, 234, 0.7) inset;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: all 1s ease;
-
-      p {
-        color: transparent;
-        -webkit-text-stroke: 0.02rem #fff8;
-        text-shadow: 0 0 0.1rem #fff5;
-        font-size: 1rem;
+    padding: 2% 10% 4%;
+    animation: outLight 1s linear forwards;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .prizeItem{
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 0.2rem;
+      border-radius: 50%;
+      position: relative;
+      opacity: 0;
+      animation: showItem 0.8s ease-in forwards;
+      .prizeItemBg{
+        width: 110%;
+        height: 110%;
+        position: absolute;
+        top: -5%;
+        left: -5%;
+        border-radius: 50%;
+        background-image: conic-gradient(aqua,transparent,aqua,transparent,aqua,transparent,aqua,transparent,aqua,transparent,aqua);
+        mask: radial-gradient(black 30%,transparent 70%);
+        -webkit-mask: radial-gradient(black 30%,transparent 70%);
+        animation: whirl 5s linear infinite;
       }
-
-      &:nth-child(1) {
-        transform: rotateX(90deg) translateZ(0.55rem) rotateZ(180deg);
-
-        p {
-          margin-right: 0.5rem;
+      .prizeItemBorder{
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        border-radius: 0.1rem;
+        border: aqua 0.05rem solid;
+        background-color: rgb(193, 241, 255);
+        box-shadow: 0 0 0.5rem 0.05rem aqua;
+        img{
+          width: 100%;
+          height: 100%;
         }
       }
-
-      &:nth-child(2) {
-        transform: rotateY(90deg) translateZ(0.55rem) rotateZ(-90deg);
-      }
-
-      &:nth-child(3) {
-        transform: rotateZ(90deg) translateZ(0.55rem) rotateZ(180deg);
-      }
-
-      &:nth-child(4) {
-        transform: rotateZ(-90deg) translateZ(-0.55rem) rotateX(180deg);
-      }
-
-      &:nth-child(5) {
-        transform: rotateY(-90deg) translateZ(0.55rem) rotateZ(90deg);
-      }
-
-      &:nth-child(6) {
-        transform: rotateX(90deg) translateZ(-0.55rem) rotateY(180deg) rotateZ(180deg);
+      .cnText{
+        position: absolute;
+        width: 100%;
+        bottom: -0.5rem;
+        left: 0;
+        font-family: 'coke';
+        color: #fff;
+        font-size: 0.5rem;
       }
     }
+  }
+}
+
+@keyframes outLight{
+  0%{
+    box-shadow:none;
+  }
+  100%{
+    box-shadow: 0 0 2rem 0.1rem aqua;
+  }
+}
+
+@keyframes showItem{
+  0%{
+    transform: scale(1.5);
+    filter: blur(0.5rem);
+    opacity: 0;
+  }
+  100%{
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
   }
 }

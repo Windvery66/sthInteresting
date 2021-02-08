@@ -39,8 +39,8 @@
     </div> -->
   </div>
   <div id="cards" ref="cards" v-show="showCards">
-    <prizeBox  amount="10" />
-    <button class="cardClose" @click="closeCards">close</button>
+    <prizeBox ref="prizeBox"/>
+    <button style="z-index:1000" class="cardClose" @click="closeCards">close</button>
   </div>
 </div>
 </template>
@@ -65,6 +65,9 @@ export default {
       this.$refs.fiveBall.style.cssText = "";
       this.$refs.cards.style.cssText = "";
       setTimeout(()=>{
+        this.$refs.prizeBox.selected = null;
+        this.$refs.prizeBox.showBox = true;
+        this.$refs.prizeBox.showResult = false;
         this.showCards = false;
       },1000)
     }
