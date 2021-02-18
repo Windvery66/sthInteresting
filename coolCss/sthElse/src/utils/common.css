@@ -24,6 +24,12 @@ html{
   src: url("../assets/fontStyle/Coca-Cola.ttf")
 }
 
+@font-face {
+  font-family: "ShangShouRuiLengTi-2";
+  src: url("../assets/fontStyle/ShangShouRuiLengTi-2.ttf")
+}
+
+
 /* @font-face {
   font-family: "digital-figure";
   src: url("./indexStatic/CursedTimerUlil-Aznm.ttf")
