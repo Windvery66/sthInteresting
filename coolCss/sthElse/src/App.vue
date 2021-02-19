@@ -18,8 +18,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    cursor: url("./assets/aaa.ico"), auto;
-    animation: cursorFluctuate 0.5s linear infinite;
+    /* cursor: url("./assets/aaa.ico"), auto; */
+    /* animation: cursorFluctuate 0.5s linear infinite; */
 }
 @keyframes cursorFluctuate {
     0% {

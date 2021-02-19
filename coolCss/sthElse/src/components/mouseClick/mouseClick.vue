@@ -32,9 +32,9 @@ export default {
                 that.$refs['mouseClick'+clickTimes][0].style.cssText =
                     "top:calc(" +
                     e.clientY +
-                    "px - 0.75rem);left:calc(" +
+                    "px - 0.45rem);left:calc(" +
                     e.clientX +
-                    "px - 0.75rem)";
+                    "px - 0.45rem)";
                     setTimeout(()=>{
                       that.clickTimesOuter++;
                       if(that.clickTimesOuter == clickTimes){

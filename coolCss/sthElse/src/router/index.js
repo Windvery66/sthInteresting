@@ -11,13 +11,6 @@ const routes = [
       import( /* webpackChunkName: "index" */ '@/views/index/index'),
   meta: {},
 },
-{
-  path: '/test',
-  name: 'test',
-  component: () =>
-      import( /* webpackChunkName: "test" */ '@/views/test/test'),
-  meta: {},
-}
 ]
 
 const router = new VueRouter({
