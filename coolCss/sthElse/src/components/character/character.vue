@@ -10,14 +10,19 @@
             ">
             <div class="legRightBehind" :style="'animation-delay:0.' + index + 's;'">
                 <div class="legRightFront" :style="'animation-delay:0.' + index + 's;'"></div>
-                <div class="legLeftBehind" :style="'animation-delay:0.' + index + 's;'">
-                    <div class="legLeftFront" :style="'animation-delay:0.' + index + 's;'"></div>
-                </div>
-                <div class="bodyBottom" :style="'animation-delay:0.' + index + 's;'">
-                    <div class="bodyTop" :style="'animation-delay:0.' + index + 's;'">
+                <div class="bodyBottom" :style="'animation-delay:0.' + index + 's;background:transparent'">
+                    <div class="bodyTop" :style="'animation-delay:0.' + index + 's;background:transparent'">
                         <div class="armRightBehind" :style="'animation-delay:0.' + index + 's;'">
                             <div class="armRightFront" :style="'animation-delay:0.' + index + 's;'"></div>
                         </div>
+                    </div>
+                </div>
+                <div class="bodyBottom" :style="'animation-delay:0.' + index + 's;'">
+                    <div class="legLeftBehind" :style="'animation-delay:0.' + index + 's;'">
+                        <div class="legLeftFront" :style="'animation-delay:0.' + index + 's;'"></div>
+                    </div>
+
+                    <div class="bodyTop" :style="'animation-delay:0.' + index + 's;'">
                         <div class="armLeftBehind" :style="'animation-delay:0.' + index + 's;'">
                             <div class="armLeftFront" :style="'animation-delay:0.' + index + 's;'"></div>
                         </div>
