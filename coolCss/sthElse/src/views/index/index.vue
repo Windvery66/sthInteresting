@@ -44,6 +44,8 @@
         <fiveBall />
         <!-- 玩家(战斗形象) -->
         <character />
+        <!-- ui -->
+        <uiMenu />
         <!-- 物品栏 -->
         <div class="innerWindow" ref="innerWindow" style="top: 30%; left: 30%">
             <div class="tops">
@@ -92,6 +94,7 @@ import showTitle from "@/components/showTitle/showTitle.vue";
 import dice from "@/components/dice/dice.vue";
 import mouseClick from "@/components/mouseClick/mouseClick.vue";
 import gameMenu from "@/components/gameMenu/gameMenu.vue";
+import uiMenu from "@/components/uiMenu/uiMenu.vue";
 import fiveBall from "@/components/fiveBall/fiveBall.vue";
 import character from "@/components/character/character.vue";
 import btn from "@/components/btn/btn.vue";
@@ -379,6 +382,7 @@ export default {
         fiveBall,
         character,
         btn,
+        uiMenu,
     },
 };
 </script>
