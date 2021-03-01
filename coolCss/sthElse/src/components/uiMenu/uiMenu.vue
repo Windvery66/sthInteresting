@@ -11,7 +11,7 @@ export default {
         };
     },
     created() {
-        this.dateInfos = dateWuXing(new Date("1993-5-5 16:30").getTime())
+        this.dateInfos = dateWuXing(new Date().getTime())
         console.log(this.dateInfos)
     },
     computed:{
