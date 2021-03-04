@@ -11,6 +11,13 @@ const routes = [
       import( /* webpackChunkName: "index" */ '@/views/index/index'),
   meta: {},
 },
+{
+  path: '/test1',
+  name: 'test1',
+  component: () =>
+      import( /* webpackChunkName: "test1" */ '@/views/test1/test1'),
+  meta: {},
+},
 ]
 
 const router = new VueRouter({

@@ -29,6 +29,12 @@ html{
   src: url("../assets/fontStyle/ShangShouRuiLengTi-2.ttf")
 }
 
+@font-face {
+  font-family: "AuraDianZhenSong";
+  src: url("../assets/fontStyle/AuraDianZhenSong.ttf")
+}
+
+
 
 /* @font-face {
   font-family: "digital-figure";
@@ -136,4 +142,74 @@ html{
   100%{
     transform: rotateZ(360deg) scale(1);
   }
+}
+
+
+/* 五行小图标 */
+.wuxingIcon{
+  width: 0.2rem;
+  height: 0.2rem;
+  color: transparent;
+  filter: drop-shadow(0 0 0.02rem #fff);
+}
+.wuxingIcon div{
+  width: 0.2rem;
+  height: 0.2rem;
+  color: transparent;
+}
+/* 金 */
+.char91d1{
+  background-image: radial-gradient(ellipse at bottom,rgb(255, 255, 0) 10%,rgb(192, 145, 16));
+  mask: url("../assets/metal.svg")  center center  no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../assets/metal.svg")  center center  no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+/* 木 */
+.char6728{  
+  background-image: radial-gradient(ellipse at bottom, rgb(0, 255, 0) 10%,rgb(1, 87, 1));
+  mask: url("../assets/wood.svg")  center center  no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../assets/wood.svg")  center center  no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+/* 水 */
+.char6c34{
+  background-image: radial-gradient(ellipse at bottom, rgb(0, 238, 255) 10%,rgb(17, 155, 165));
+  mask: url("../assets/water.svg")  center center  no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../assets/water.svg")  center center  no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+/* 火 */
+.char706b{
+  background-image: radial-gradient(ellipse at bottom, rgb(255, 0, 0) 10%,rgb(153, 25, 25));
+  mask: url("../assets/fire.svg")  center center  no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../assets/fire.svg")  center center  no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+/* 土 */
+.char571f{
+  background-image: radial-gradient(ellipse at bottom, rgb(225, 0, 255) 10%,rgb(139, 17, 155));
+  mask: url("../assets/earth.svg")  center center  no-repeat;
+  mask-size: 85% 85%;
+  -webkit-mask: url("../assets/earth.svg")  center center  no-repeat;
+  -webkit-mask-size: 85% 85%;
+}
+/* 阳 */
+.char9633{
+  background-image: radial-gradient(ellipse at bottom, rgb(255, 255, 255) 10%,rgb(197, 197, 197));
+  -webkit-mask-image: url("../assets/yinyang.svg");
+  mask-image: url("../assets/yinyang.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+/* 阴 */
+.char9634{
+  background-image: radial-gradient(ellipse at bottom, rgb(0, 0, 0) 10%,rgb(49, 49, 49));
+  -webkit-mask-image: url("../assets/yinyang.svg");
+  mask-image: url("../assets/yinyang.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }

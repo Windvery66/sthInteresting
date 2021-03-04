@@ -1,0 +1,133 @@
+#uiMenu {
+  position: absolute;
+  width: 2rem;
+  right: 0;
+  top: 1rem;
+  font-size: 0.14rem;
+  line-height: 0.2rem;
+  font-family: "AuraDianZhenSong";
+  font-weight: 800;
+  color: rgb(199, 255, 252);
+  text-shadow: 0 0 0.03rem #fff;
+  padding-top: 1rem;
+  border-radius: 0.1rem;
+  background-image: linear-gradient(transparent 20%, rgba(1, 168, 168, 0.5) 100%);
+
+
+  .numberText {
+    font-family: 'digital-figure';
+    font-weight: 400;
+  }
+
+  .timeArea {
+    .timeAreaTime {
+      font-size: 0.3rem;
+      line-height: 0.35rem;
+      animation: timeFlicker 2s linear infinite;
+    }
+  }
+
+  @keyframes timeFlicker {
+    0% {
+      text-shadow: 0 0 0.02rem #fff;
+    }
+
+    50% {
+      text-shadow: 0 0 0.08rem #fff;
+    }
+
+    100% {
+      text-shadow: 0 0 0.02rem #fff;
+    }
+  }
+
+  .showBtn {
+    width: 100%;
+    box-shadow: 0 0 0.1rem 0.01rem #fff5 inset;
+    border-radius: 0 0 0.1rem 0.1rem;
+
+    p {
+      transition: all .2s ease;
+      transform: rotate(90deg);
+    }
+
+    &.showMore {
+      p {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .timeMoreArea {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    width: 100%;
+    height: 0rem;
+    padding: 0rem;
+    overflow: hidden;
+    opacity: 0;
+    border-radius: 0.1rem;
+    box-shadow: 0 0 0.1rem 0.01rem #fff5 inset;
+    background-image: linear-gradient(transparent 20%, rgba(0, 129, 129, 0.5) 100%);
+    transition: all .5s ease;
+    .timeMoreAreaItem{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 0.05rem auto;
+      &.main{
+        font-size: 0.16rem;
+        font-weight: 800;
+      }
+      &.gz{
+        font-weight: 400;
+      }
+    }
+    .timeAreaEnv{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      .numberText{
+        font-weight: 800;
+        text-shadow: 0 0 0.05rem #000;
+      }
+      .timeAreaEnvItem{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &.jin{
+          color: rgb(255, 255, 133);
+        }
+        &.mu{
+          color: rgb(108, 255, 108);
+        }
+        &.shui{
+          color: rgb(108, 245, 255);
+        }
+        &.huo{
+          color: rgb(255, 119, 119);
+        }
+        &.tu{
+          color: rgb(240, 126, 255);
+        }
+        &.yang{
+          color: rgb(255, 255, 255);
+        }
+        &.yin{
+          color: rgb(109, 109, 109);
+        }
+      }
+    }
+    &.showMore {
+      opacity: 1;
+      top: 1.8rem;
+      width: calc(100% - 0.2rem);
+      height: 2.1rem;
+      padding: 0.1rem;
+
+      &.festival{
+        top: 2rem;
+      }
+    }
+  }
+}
