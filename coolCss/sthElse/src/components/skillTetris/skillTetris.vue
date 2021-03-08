@@ -14,8 +14,9 @@ export default {
         return {
             blockType: 0, //方块类型,每种形状对应五行阴阳中的一种(index+1)
             blockRotate: 0, //方块旋转,共4种形状
-            blockRight: 0, //方块右偏移量
+            blockRight: 3, //方块右偏移量
             blockDown: 0, //方块下偏移量
+            gaming: null, //游戏进行中的循环
             activeBlock: [],
             wuxingArr: ["jin", "mu", "shui", "huo", "tu", "yin", "yang"],
             //实时方块区域
@@ -322,6 +323,9 @@ export default {
     },
     mounted() {
         document.addEventListener("keydown", this.blockMove);
+        this.gaming = setInterval(() => {
+            this.blockMove({ code: "ArrowDown" });
+        }, 500);
     },
     methods: {
         //创造方块
@@ -357,7 +361,8 @@ export default {
         },
         //渲染方块
         blockShow(code) {
-          let crashFlag = false;//触碰flag
+            let crashFlag = false; //触碰flag
+            let gameover = false; //游戏结束flag
             this.tetrisData = JSON.parse(JSON.stringify(this.tetrisDataBefore));
             this.tetrisData.splice(0, 0);
             this.activeBlock.forEach((item, index) => {
@@ -378,29 +383,58 @@ export default {
                     ++this.blockRight;
                 }
                 //碰撞
-                if(this.tetrisDataBefore[item.y + this.blockDown][item.x + this.blockRight]){
-                  if(code == "ArrowRight"){
-                    --this.blockRight;
-                  }else if(code == "ArrowLeft"){
-                    ++this.blockRight;
-                  }else{
-                    --this.blockDown;
-                  }
-                    crashFlag = true;
+                if (
+                    this.tetrisDataBefore[item.y + this.blockDown] &&
+                    this.tetrisDataBefore[item.y + this.blockDown][
+                        item.x + this.blockRight
+                    ]
+                ) {
+                    if (code == "ArrowRight") {
+                        --this.blockRight;
+                    } else if (code == "ArrowLeft") {
+                        ++this.blockRight;
+                    } else {
+                        --this.blockDown;
+                        crashFlag = true;
+                    }
                 }
             });
             //渲染
             this.activeBlock.forEach((item) => {
+                if (!this.tetrisData[item.y + this.blockDown]) {
+                    gameover = true;
+                    return;
+                }
                 this.tetrisData[item.y + this.blockDown][
                     item.x + this.blockRight
                 ] = this.blockType;
             });
-            //碰撞结束
-            if(crashFlag){
-              this.tetrisDataBefore = JSON.parse(JSON.stringify(this.tetrisData));
-              this.blockRight = 0;
-              this.blockDown = 0;
-              this.blockCreate();
+            //游戏结束
+            if (gameover) {
+                clearInterval(this.gaming);
+                this.gaming = null;
+                document.removeEventListener("keydown", this.blockMove);
+                alert("Game Over!");
+            } else if (crashFlag) {
+                //碰撞结束
+                this.tetrisData.forEach((row, index) => {
+                    let remove = true;
+                    row.forEach((item) => {
+                        if (item == 0) {
+                            remove = false;
+                        }
+                    });
+                    if (remove) {
+                        this.tetrisData.splice(index, 1);
+                        this.tetrisData.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    }
+                });
+                this.tetrisDataBefore = JSON.parse(
+                    JSON.stringify(this.tetrisData)
+                );
+                this.blockRight = 3;
+                this.blockDown = 0;
+                this.blockCreate();
             }
         },
     },

@@ -24,22 +24,29 @@
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.jin {
   background-color: #ffff85;
+  box-shadow: 0 0 0.1rem yellow;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.mu {
   background-color: #6cff6c;
+  box-shadow: 0 0 0.1rem green;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.shui {
   background-color: #6cf5ff;
+  box-shadow: 0 0 0.1rem blue;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.huo {
   background-color: #ff7777;
+  box-shadow: 0 0 0.1rem red;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.tu {
   background-color: #f07eff;
+  box-shadow: 0 0 0.1rem purple;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.yang {
   background-color: #ffffff;
+  box-shadow: 0 0 0.1rem white;
 }
 #skillTetris .tetrisArea .tetrisBgRows .tetrisBgItem.yin {
   background-color: #6d6d6d;
+  box-shadow: 0 0 0.1rem gray;
 }
