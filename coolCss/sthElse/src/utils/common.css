@@ -34,6 +34,15 @@ html{
   src: url("../assets/fontStyle/AuraDianZhenSong.ttf")
 }
 
+@font-face {
+  font-family: "CursedTimerUlil-Aznm";
+  src: url("../assets/fontStyle/CursedTimerUlil-Aznm.ttf")
+}
+
+@font-face {
+  font-family: "Digital7-1e1Z";
+  src: url("../assets/fontStyle/Digital7-1e1Z.ttf")
+}
 
 
 /* @font-face {
