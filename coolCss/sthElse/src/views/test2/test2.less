@@ -10,6 +10,8 @@
   left: 0;
   margin: auto;
   overflow: hidden;
+  background-image: url(../../assets/bg.jpeg);
+  background-size: 100% 100%;
 
   .battleArea {
     position: absolute;
@@ -21,6 +23,7 @@
     width: 95%;
     height: 90%;
     box-shadow: 0 0 0.1rem rgb(56, 174, 252) inset, 0 0 0.5rem rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(0.05rem);
 
     .battleAreaTops {
       width: 100%;
@@ -29,7 +32,7 @@
       left: 0;
       transform-style: preserve-3d;
       perspective: 5rem;
-      filter: drop-shadow(0 0 0.1rem rgba(28, 202, 255, 0.7));
+      filter: drop-shadow(0 0 0.05rem rgba(28, 202, 255, 0.7));
 
       .vs {
         position: absolute;
@@ -79,7 +82,8 @@
             box-shadow: 0.01rem 0.01rem 0.1rem red inset;
             transition: all .1s ease;
           }
-          .barShadow{
+
+          .barShadow {
             background-image: linear-gradient(45deg, red, orange);
           }
         }
@@ -102,7 +106,8 @@
             box-shadow: 0.01rem 0.01rem 0.1rem blue inset;
             transition: all .1s ease;
           }
-          .barShadow{
+
+          .barShadow {
             background-image: linear-gradient(45deg, blue, aqua);
           }
         }
@@ -120,33 +125,174 @@
       }
     }
 
-    .numberValue{
+    .numberValue {
       position: absolute;
       top: 1.5rem;
       font-family: 'CursedTimerUlil-Aznm';
       display: flex;
-      div{
+
+      div {
         margin: 0.2rem;
         font-size: 0.3rem;
         -webkit-background-clip: text;
         color: transparent;
+        filter: drop-shadow(1px 1px 0 #fff8) drop-shadow(2px 2px 0 #0008);
       }
+
       &.playerValue {
         left: 0;
       }
-  
+
       &.enemyValue {
         right: 0;
       }
     }
 
-    .hpValue{
+    .hpValue {
       margin-top: 0.1rem !important;
-      background-image: linear-gradient(red,orange);
+      background-image: linear-gradient(red, orange);
       font-size: 0.4rem !important;
     }
-    .mpValue{
-      background-image: linear-gradient(blue,aqua);
+
+    .mpValue {
+      background-image: linear-gradient(blue, aqua);
+    }
+  }
+
+  .progressBars {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 0;
+    width: 100%;
+    transform-style: preserve-3d;
+    perspective: 1rem;
+    .progressBar {
+      position: absolute;
+      top: 0;
+      width: 40%;
+      &.player {
+        left: 10%;
+        transform: rotateY(10deg) translateX(0.05rem);
+        .progressBarBg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 0.5rem;
+          border-radius: 0.1rem 0 0 0;
+          --redBar: rgba(255, 72, 0, 0.7);
+          --orangeBar: rgba(255, 206, 45, 0.3);
+          background-image: linear-gradient(60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+          background-size: 1rem 100%;
+          filter: drop-shadow(0 0 0.1rem orange);
+          animation: playerProgressBarMove 1s linear infinite;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0.5rem;
+            left: 0;
+            width: 100%;
+            height: 0.5rem;
+            border-radius: 0 0 0 0.1rem;
+            background-image: linear-gradient(-60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+            background-size: 1rem 100%;
+            animation: playerProgressBarMove 1s linear infinite;
+          }
+        }
+        .progressBarItem{
+          float: right;
+        }
+        @keyframes playerProgressBarMove {
+          0% {
+            background-position-x: 0;
+          }
+
+          100% {
+            background-position-x: 1rem;
+          }
+        }
+      }
+
+      &.enemy {
+        right: 10%;
+        transform: rotateY(-10deg) translateX(-0.05rem);
+        .progressBarBg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 0.5rem;
+          border-radius: 0 0.1rem 0 0;
+          --blueBar: rgba(0, 47, 255, 0.7);
+          --aquaBar: rgba(45, 241, 255, 0.3);
+          background-image: linear-gradient(-60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+          background-size: 1rem 100%;
+          filter: drop-shadow(0 0 0.1rem aqua);
+          animation: enemyProgressBarMove 1s linear infinite;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0.5rem;
+            left: 0;
+            width: 100%;
+            height: 0.5rem;
+            border-radius: 0 0 0.1rem 0;
+            background-image: linear-gradient(60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+            background-size: 1rem 100%;
+            animation: enemyProgressBarMove 1s linear infinite;
+          }
+        }
+        .progressBarItem{
+          float: left;
+        }
+        @keyframes enemyProgressBarMove {
+          0% {
+            background-position-x: 0.3rem;
+          }
+
+          100% {
+            background-position-x: -0.7rem;
+          }
+        }
+      }
+
+      .innerProgressBar{
+        position: absolute;
+        top: 0.1rem;
+        left: 0;
+        width: 100%;
+        height: 0.8rem;
+        overflow: hidden;
+        .progressBarItems{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          transition: all .1s linear;
+          .progressBarItem{
+            height: 0.8rem;
+            border-radius: 0.05rem;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 0 0.1rem 0.02rem #000 inset;
+            .attackAnimation{
+              height: 0.8rem;
+              background-color: rgba(255, 255, 255, 0.3);
+            }
+            .afterAnimation{
+              height: 0.8rem;
+              background-color: rgba(160, 160, 160, 0.3);
+            }
+            img{
+              width: 0.5rem;
+              height: 0.8rem;
+            }
+          }
+        }
+      }
     }
   }
 }
