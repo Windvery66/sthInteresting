@@ -183,6 +183,9 @@
   background-size: 1rem 100%;
   animation: playerProgressBarMove 1s linear infinite;
 }
+#test2 .progressBars .progressBar.player .progressBarItems {
+  left: 0;
+}
 #test2 .progressBars .progressBar.player .progressBarItem {
   float: right;
 }
@@ -224,6 +227,9 @@
   background-size: 1rem 100%;
   animation: enemyProgressBarMove 1s linear infinite;
 }
+#test2 .progressBars .progressBar.enemy .progressBarItems {
+  right: 0;
+}
 #test2 .progressBars .progressBar.enemy .progressBarItem {
   float: left;
 }
@@ -246,7 +252,6 @@
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems {
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   transition: all 0.1s linear;
@@ -256,7 +261,7 @@
   border-radius: 0.05rem;
   display: flex;
   overflow: hidden;
-  box-shadow: 0 0 0.1rem 0.02rem #000 inset;
+  box-shadow: 0 0 0.1rem 0.02rem #0008 inset;
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem .attackAnimation {
   height: 0.8rem;

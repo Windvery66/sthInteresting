@@ -50,7 +50,7 @@
                 <div class="progressBar player">
                     <div class="progressBarBg"></div>
                     <div class="innerProgressBar">
-                        <div class="progressBarItems" :style="'transform:translateX('+(runTime/10)+'rem)'">
+                        <div class="progressBarItems" :style="'width:calc(100% + '+(runTime/10)+'rem)'">
                             <div class="progressBarItem" v-for="(item,index) in playerProgress" :key="index">
                                 <div class="afterAnimation" v-show="item.afterAnimation" :style="'width:'+item.afterAnimation+'rem'"></div>
                                 <img :src="item.img" alt="">
@@ -63,7 +63,7 @@
                 <div class="progressBar enemy">
                     <div class="progressBarBg"></div>
                     <div class="innerProgressBar">
-                        <div class="progressBarItems" :style="'transform:translateX(-'+(runTime/10)+'rem)'">
+                        <div class="progressBarItems" :style="'width:calc(100% + '+(runTime/10)+'rem)'">
                             <div class="progressBarItem" v-for="(item,index) in enemyProgress" :key="index">
                                 <div class="attackAnimation" v-show="item.attackAnimation" :style="'width:'+item.attackAnimation+'rem'"></div>
                                 <img :src="item.img" alt="">
@@ -77,6 +77,9 @@
             <div class="skillPool"></div>
 
             <button @click="fight">Fight!</button>
+            <button @click="changeSpeed(100)">x1</button>
+            <button @click="changeSpeed(50)">x2</button>
+            <button @click="changeSpeed(null)">暂停</button>
         </div>
     </div>
 </template>
@@ -85,8 +88,8 @@
 export default {
     data() {
         return {
-            runTime: 0,
-            fightRun: null,
+            runTime: 0, //帧数(每帧=0.1rem)
+            fightRun: null, //时间循环函数
             playerCurrentHp: 1000,
             playerMaxHp: 1000,
             playerCurrentMp: 1000,
@@ -95,11 +98,13 @@ export default {
             enemyMaxHp: 1000,
             enemyCurrentMp: 1000,
             enemyMaxMp: 1000,
+            playerProgressIndex: 0,
+            playerProgressLength: 0,
             playerProgress: [
                 {
                     img: require("../../assets/ava.png"),
                     attackAnimation: 0.2,
-                    afterAnimation: 0.455,
+                    afterAnimation: 0.45,
                 },
                 {
                     img: require("../../assets/ava.png"),
@@ -132,39 +137,7 @@ export default {
                     afterAnimation: 0,
                 },
             ],
-            enemyProgress: [
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-            ],
-            skillPool: [
+                        skillPool: [
                 {
                     img: require("../../assets/ava.png"),
                     attackAnimation: 0.2,
@@ -176,13 +149,107 @@ export default {
                     afterAnimation: 0.1,
                 },
             ],
+                        enemyProgressIndex: 0,
+            enemyProgressLength: 0,
+            enemyProgress: [
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.5,
+                },
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },              {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },              {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+            ],
+
+                        enemySkillPool: [
+                {
+                    img: require("../../assets/ccc.png"),
+                    attackAnimation: 0.2,
+                    afterAnimation: 0,
+                },
+            ],
         };
     },
     created() {
         document.querySelector("#loading").style.cssText = "display:none";
-        // this.fightRun = setInterval(() => {
-        //     ++this.runTime;
-        // }, 100);
+        this.fightRun = setInterval(() => {
+            ++this.runTime;
+        }, 100);
+    },
+    watch: {
+        runTime(val) {
+            // 我方自动补技能
+            let moveLength =
+                this.playerProgress[this.playerProgressIndex].attackAnimation +
+                this.playerProgress[this.playerProgressIndex].afterAnimation +
+                0.5;
+            if (val > this.playerProgressLength * 10) {
+                this.playerProgress.push(
+                    JSON.parse(
+                        JSON.stringify(
+                            this.skillPool[
+                                Math.floor(
+                                    Math.random() * this.skillPool.length
+                                )
+                            ]
+                        )
+                    )
+                );
+                this.playerProgressLength += moveLength;
+                this.playerProgressIndex++;
+            }
+            // 敌方自动补技能
+            let enemyMoveLength =
+                this.enemyProgress[this.enemyProgressIndex].attackAnimation +
+                this.enemyProgress[this.enemyProgressIndex].afterAnimation +
+                0.5;
+            if (val > this.enemyProgressLength * 10) {
+                this.enemyProgress.push(
+                    JSON.parse(
+                        JSON.stringify(
+                            this.enemySkillPool[
+                                Math.floor(
+                                    Math.random() * this.enemySkillPool.length
+                                )
+                            ]
+                        )
+                    )
+                );
+                this.enemyProgressLength += enemyMoveLength;
+                this.enemyProgressIndex++;
+            }
+        },
     },
     methods: {
         fight() {
@@ -195,6 +262,14 @@ export default {
                 this.playerCurrentMp = 1000;
                 this.enemyCurrentHp = 1000;
                 this.enemyCurrentMp = 1000;
+            }
+        },
+        changeSpeed(speed) {
+            clearInterval(this.fightRun);
+            if (speed) {
+                this.fightRun = setInterval(() => {
+                    ++this.runTime;
+                }, speed);
             }
         },
     },
