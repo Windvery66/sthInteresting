@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="innerProgressBar">
-                        <div class="progressBarItems" :style="'width:calc(100% + '+(runTime/10)+'rem)'">
+                        <div class="progressBarItems" :style="'width:calc(100% + '+(playerRunTime/10)+'rem);transition: all '+ playerSpeedCoefficient/10 +'s linear;'">
                             <div class="progressBarItem" v-for="(item,index) in playerProgress" :key="index" @click="putSkill(index)">
                                 <div class="afterAnimation" v-show="item.afterAnimation" :style="'width:'+item.afterAnimation+'rem'"></div>
                                 <img :src="item.img" alt="">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="innerProgressBar">
-                        <div class="progressBarItems" :style="'width:calc(100% + '+(runTime/10)+'rem)'">
+                        <div class="progressBarItems" :style="'width:calc(100% + '+(enemyRunTime/10)+'rem);transition: all '+ enemySpeedCoefficient/10 +'s linear;'">
                             <div class="progressBarItem" v-for="(item,index) in enemyProgress" :key="index">
                                 <div class="attackAnimation" v-show="item.attackAnimation" :style="'width:'+item.attackAnimation+'rem'"></div>
                                 <img :src="item.img" alt="">
@@ -90,10 +90,13 @@
                 </div>
             </div>
 
-            <button @click="fight">Fight!</button>
             <button @click="changeSpeed(null)">暂停</button>
             <button @click="changeSpeed(100)">x1</button>
             <button @click="changeSpeed(50)">x2</button>
+            <button v-show="enemySpeed" @click="dizz('enemy',1)">眩晕敌方1s</button>
+            <button v-show="enemySpeed" @click="speedCut('enemy',50)">减速敌方50%</button>
+            <button v-show="enemySpeed" @click="speedCut('enemy',0)">恢复敌方速度</button>
+
         </div>
 
         <!-- 手持的技能 -->
@@ -107,9 +110,14 @@
 export default {
     data() {
         return {
-            runTime: 0, //帧数(每帧=0.1rem)
-            fightRun: null, //时间循环函数
-            speed: 100, //每帧间隔(毫秒)
+            playerRunTime: 0, //我方帧数(每帧=0.1rem)
+            enemyRunTime: 0, //敌方帧数(每帧=0.1rem)
+            playerFightRun: null, //我方时间循环函数
+            enemyFightRun: null, //敌方时间循环函数
+            playerSpeed: 100, //我方每帧间隔(毫秒)
+            enemySpeed: 100, //敌方每帧间隔(毫秒)
+            playerSpeedCoefficient: 1, //我方速度系数
+            enemySpeedCoefficient: 1, //敌方速度系数
             targetSkill: null, //手持的技能
             playerCurrentHp: 1000,
             playerMaxHp: 1000,
@@ -186,13 +194,16 @@ export default {
         });
         this.enemyCurrentProgressLength += this.enemyProgress[0].attackAnimation;
         this.playerCurrentProgressLength += this.playerProgress[0].attackAnimation;
-        this.fightRun = setInterval(() => {
-            ++this.runTime;
-        }, 100);
+        this.playerFightRun = setInterval(() => {
+            ++this.playerRunTime;
+        }, this.playerSpeed*this.playerSpeedCoefficient);
+        this.enemyFightRun = setInterval(() => {
+            ++this.enemyRunTime;
+        }, this.enemySpeed*this.enemySpeedCoefficient);
     },
     watch: {
-        //进度条运行中
-        runTime(val) {
+        //我方进度条运行中
+        playerRunTime(val) {
             // 我方自动补技能
             if (this.playerProgressLength * 10 < 80) {
                 let autoPut = JSON.parse(
@@ -247,19 +258,25 @@ export default {
                     );
                 }
             }
-
+        },
+        //敌方进度条运行中
+        enemyRunTime(val) {
             // 敌方自动补技能
             if (this.enemyProgressLength * 10 < 80) {
                 let autoPutEnemy = JSON.parse(
                     JSON.stringify(
                         this.enemySkillPool[
-                            Math.floor(Math.random() * this.enemySkillPool.length)
+                            Math.floor(
+                                Math.random() * this.enemySkillPool.length
+                            )
                         ]
                     )
                 );
                 this.enemyProgress.push(autoPutEnemy);
                 this.enemyProgressLength +=
-                    autoPutEnemy.attackAnimation + autoPutEnemy.afterAnimation + 0.5;
+                    autoPutEnemy.attackAnimation +
+                    autoPutEnemy.afterAnimation +
+                    0.5;
             } else if (val > this.enemyProgressLength * 10 - 80) {
                 this.enemyProgress.push(
                     JSON.parse(
@@ -275,8 +292,7 @@ export default {
                 this.enemyProgressLength +=
                     this.enemyProgress[this.enemyProgressIndex]
                         .attackAnimation +
-                    this.enemyProgress[this.enemyProgressIndex]
-                        .afterAnimation +
+                    this.enemyProgress[this.enemyProgressIndex].afterAnimation +
                     0.5;
             }
 
@@ -305,27 +321,58 @@ export default {
         },
     },
     methods: {
-        // 战斗
-        fight() {
-            this.playerCurrentHp -= 100;
-            this.playerCurrentMp -= 100;
-            this.enemyCurrentHp -= 100;
-            this.enemyCurrentMp -= 50;
-            if (this.playerCurrentHp < -1) {
-                this.playerCurrentHp = 1000;
-                this.playerCurrentMp = 1000;
-                this.enemyCurrentHp = 1000;
-                this.enemyCurrentMp = 1000;
-            }
-        },
         // 调整速度
         changeSpeed(speed) {
-            this.speed = speed;
-            clearInterval(this.fightRun);
+            this.playerSpeed = speed;
+            this.enemySpeed = speed;
+            clearInterval(this.playerFightRun);
+            clearInterval(this.enemyFightRun);
             if (speed) {
-                this.fightRun = setInterval(() => {
-                    ++this.runTime;
-                }, speed);
+                this.playerFightRun = setInterval(() => {
+                    ++this.playerRunTime;
+                }, speed * this.playerSpeedCoefficient);
+                this.enemyFightRun = setInterval(() => {
+                    ++this.enemyRunTime;
+                }, speed * this.enemySpeedCoefficient);
+            }
+        },
+        //眩晕
+        //params:敌/我,眩晕时长(s)
+        dizz(identity, time) {
+            var that = this;
+            if (identity == "enemy") {
+                clearInterval(this.enemyFightRun);
+                setTimeout(()=>{
+                that.enemyFightRun = setInterval(() => {
+                    ++that.enemyRunTime;
+                }, that.enemySpeed*that.enemySpeedCoefficient);
+                },time*1000)
+            } else {
+                clearInterval(this.playerFightRun);
+                setTimeout(()=>{
+                that.playerFightRun = setInterval(() => {
+                    ++that.playerRunTime;
+                }, that.playerSpeed*that.playerSpeedCoefficient);
+                },time*1000)
+            }
+        },
+        //减速
+        //params:敌/我,减速幅度(百分比,负数即为加速,0为恢复)
+        //减速不叠加,以最后施加的减速为准
+        speedCut(identity, percent) {
+            if (identity == "enemy") {
+                clearInterval(this.enemyFightRun);
+                this.enemySpeedCoefficient = percent?1/(1-(percent/100)):1;
+                this.enemyFightRun = setInterval(() => {
+                    ++this.enemyRunTime;
+                }, this.enemySpeed * this.enemySpeedCoefficient);
+                console.log(this.enemySpeedCoefficient)
+            } else {
+                clearInterval(this.playerFightRun);
+                this.playerSpeedCoefficient = percent?1/(1-(percent/100)):1;
+                this.playerFightRun = setInterval(() => {
+                    ++this.playerRunTime;
+                }, this.playerSpeed * this.playerSpeedCoefficient);
             }
         },
         // 从技能池拿起技能
