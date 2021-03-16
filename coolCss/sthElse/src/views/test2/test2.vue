@@ -1,5 +1,5 @@
 <template>
-    <div id="test2">
+    <div id="test2" @contextmenu.prevent="clearTargetSkill">
         <div class="battleArea">
             <!-- 顶部(血条蓝条等) -->
             <div class="battleAreaTops">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="innerProgressBar">
                         <div class="progressBarItems" :style="'width:calc(100% + '+(runTime/10)+'rem)'">
-                            <div class="progressBarItem" v-for="(item,index) in playerProgress" :key="index">
+                            <div class="progressBarItem" v-for="(item,index) in playerProgress" :key="index" @click="putSkill(index)">
                                 <div class="afterAnimation" v-show="item.afterAnimation" :style="'width:'+item.afterAnimation+'rem'"></div>
                                 <img :src="item.img" alt="">
                                 <div class="attackAnimation" v-show="item.attackAnimation" :style="'width:'+item.attackAnimation+'rem'"></div>
@@ -85,15 +85,20 @@
             </div>
             <!-- 技能池 -->
             <div class="skillPool">
-                <div class="skillPoolItem" v-for="(item,index) in skillPool" :key="index">
+                <div class="skillPoolItem" v-for="(item,index) in skillPool" :key="index" @click="pickSkill(item,$event)">
                     <img :src="item.img" alt="">
                 </div>
             </div>
 
             <button @click="fight">Fight!</button>
+            <button @click="changeSpeed(null)">暂停</button>
             <button @click="changeSpeed(100)">x1</button>
             <button @click="changeSpeed(50)">x2</button>
-            <button @click="changeSpeed(null)">暂停</button>
+        </div>
+
+        <!-- 手持的技能 -->
+        <div class="targetSkill" ref="targetSkill" v-if="targetSkill">
+            <img :src="targetSkill.img" alt="" />
         </div>
     </div>
 </template>
@@ -104,7 +109,8 @@ export default {
         return {
             runTime: 0, //帧数(每帧=0.1rem)
             fightRun: null, //时间循环函数
-            speed: 200, //每帧间隔(毫秒)
+            speed: 100, //每帧间隔(毫秒)
+            targetSkill: null, //手持的技能
             playerCurrentHp: 1000,
             playerMaxHp: 1000,
             playerCurrentMp: 1000,
@@ -115,99 +121,46 @@ export default {
             enemyMaxMp: 1000,
             playerProgressIndex: 0,
             playerProgressLength: 0,
+            playerCurrentProgressLength: 0,
             playerCurrent: null,
             playerProgress: [
                 {
                     img: require("../../assets/ava.png"),
                     attackAnimation: 2,
-                    afterAnimation: 0,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 1,
-                    afterAnimation: 0,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 1,
-                    afterAnimation: 0,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 0.2,
-                    afterAnimation: 0.5,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 0.2,
                     afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 0.2,
-                    afterAnimation: 0.2,
-                },
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 0.2,
-                    afterAnimation: 0.2,
-                },
-            ],
-            skillPool: [
-                {
-                    img: require("../../assets/ava.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation:0.1,
                 },
                 {
                     img: require("../../assets/bbb.png"),
                     attackAnimation: 0.3,
                     afterAnimation: 0.1,
                 },
-            ],//所有技能前摇和后摇都至少为0.1s,不然会造成动画不消失的bug(因为每0.1s计算一帧)
+                {
+                    img: require("../../assets/ava.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+            ],
+            skillPool: [
+                {
+                    img: require("../../assets/ava.png"),
+                    attackAnimation: 0.1,
+                    afterAnimation: 0.1,
+                },
+                {
+                    img: require("../../assets/bbb.png"),
+                    attackAnimation: 0.3,
+                    afterAnimation: 0.1,
+                },
+            ], //所有技能前摇和后摇都至少为0.1s,不然会造成动画不消失的bug(因为每0.1s计算一帧)
             enemyProgressIndex: 0,
             enemyProgressLength: 0,
+            enemyCurrentProgressLength: 0,
             enemyCurrent: null,
             enemyProgress: [
                 {
                     img: require("../../assets/ccc.png"),
                     attackAnimation: 0.1,
                     afterAnimation: 0.5,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
-                },
-                {
-                    img: require("../../assets/ccc.png"),
-                    attackAnimation: 0.1,
-                    afterAnimation: 0.1,
                 },
             ],
             enemySkillPool: [
@@ -221,18 +174,38 @@ export default {
     },
     created() {
         document.querySelector("#loading").style.cssText = "display:none";
+    },
+    mounted() {
+        this.playerProgress.forEach((item) => {
+            this.playerProgressLength +=
+                item.attackAnimation + item.afterAnimation + 0.5;
+        });
+        this.enemyProgress.forEach((item) => {
+            this.enemyProgressLength +=
+                item.attackAnimation + item.afterAnimation + 0.5;
+        });
+        this.enemyCurrentProgressLength += this.enemyProgress[0].attackAnimation;
+        this.playerCurrentProgressLength += this.playerProgress[0].attackAnimation;
         this.fightRun = setInterval(() => {
             ++this.runTime;
         }, 100);
     },
     watch: {
+        //进度条运行中
         runTime(val) {
             // 我方自动补技能
-            let moveLength =
-                this.playerProgress[this.playerProgressIndex].attackAnimation +
-                this.playerProgress[this.playerProgressIndex].afterAnimation +
-                0.5;
-            if (val > this.playerProgressLength * 10) {
+            if (this.playerProgressLength * 10 < 80) {
+                let autoPut = JSON.parse(
+                    JSON.stringify(
+                        this.skillPool[
+                            Math.floor(Math.random() * this.skillPool.length)
+                        ]
+                    )
+                );
+                this.playerProgress.push(autoPut);
+                this.playerProgressLength +=
+                    autoPut.attackAnimation + autoPut.afterAnimation + 0.5;
+            } else if (val > this.playerProgressLength * 10 - 80) {
                 this.playerProgress.push(
                     JSON.parse(
                         JSON.stringify(
@@ -244,39 +217,50 @@ export default {
                         )
                     )
                 );
-                this.playerProgressLength += moveLength;
-                this.playerProgressIndex++;
+                this.playerProgressLength +=
+                    this.playerProgress[this.playerProgressIndex]
+                        .attackAnimation +
+                    this.playerProgress[this.playerProgressIndex]
+                        .afterAnimation +
+                    0.5;
             }
 
             //我方当前技能显示
-            let playerCurrentProgressLength = this.playerProgress[
-                this.playerProgressIndex - 1
-            ]
-                ? (this.playerProgressLength -
-                      this.playerProgress[this.playerProgressIndex - 1]
-                          .afterAnimation -
-                      0.5) *
-                  10
-                : 0;
-            if (val >= Math.round(playerCurrentProgressLength)) {
-                if (val >= Math.round(playerCurrentProgressLength) + 5) {
+            if (val >= Math.round(this.playerCurrentProgressLength * 10)) {
+                if (
+                    val >=
+                    Math.round(this.playerCurrentProgressLength * 10) + 5
+                ) {
                     this.playerCurrent = null;
+                    this.playerCurrentProgressLength +=
+                        this.playerProgress[this.playerProgressIndex + 1]
+                            .attackAnimation +
+                        this.playerProgress[this.playerProgressIndex]
+                            .afterAnimation +
+                        0.5;
+                    this.playerProgressIndex++;
                 } else {
                     this.playerCurrent = JSON.parse(
                         JSON.stringify(
-                            this.playerProgress[this.playerProgressIndex - 1]
-                                .img
+                            this.playerProgress[this.playerProgressIndex].img
                         )
                     );
                 }
             }
 
             // 敌方自动补技能
-            let enemyMoveLength =
-                this.enemyProgress[this.enemyProgressIndex].attackAnimation +
-                this.enemyProgress[this.enemyProgressIndex].afterAnimation +
-                0.5;
-            if (val > this.enemyProgressLength * 10) {
+            if (this.enemyProgressLength * 10 < 80) {
+                let autoPutEnemy = JSON.parse(
+                    JSON.stringify(
+                        this.enemySkillPool[
+                            Math.floor(Math.random() * this.enemySkillPool.length)
+                        ]
+                    )
+                );
+                this.enemyProgress.push(autoPutEnemy);
+                this.enemyProgressLength +=
+                    autoPutEnemy.attackAnimation + autoPutEnemy.afterAnimation + 0.5;
+            } else if (val > this.enemyProgressLength * 10 - 80) {
                 this.enemyProgress.push(
                     JSON.parse(
                         JSON.stringify(
@@ -288,28 +272,32 @@ export default {
                         )
                     )
                 );
-                this.enemyProgressLength += enemyMoveLength;
-                this.enemyProgressIndex++;
+                this.enemyProgressLength +=
+                    this.enemyProgress[this.enemyProgressIndex]
+                        .attackAnimation +
+                    this.enemyProgress[this.enemyProgressIndex]
+                        .afterAnimation +
+                    0.5;
             }
 
             //敌方当前技能显示
-            let enemyCurrentProgressLength = this.enemyProgress[
-                this.enemyProgressIndex - 1
-            ]
-                ? (this.enemyProgressLength -
-                      this.enemyProgress[this.enemyProgressIndex - 1]
-                          .afterAnimation -
-                      0.5) *
-                  10
-                : 0;
-            if (val >= Math.round(enemyCurrentProgressLength)) {
-                if (val >= Math.round(enemyCurrentProgressLength) + 5) {
+            if (val >= Math.round(this.enemyCurrentProgressLength * 10)) {
+                if (
+                    val >=
+                    Math.round(this.enemyCurrentProgressLength * 10) + 5
+                ) {
                     this.enemyCurrent = null;
+                    this.enemyCurrentProgressLength +=
+                        this.enemyProgress[this.enemyProgressIndex + 1]
+                            .attackAnimation +
+                        this.enemyProgress[this.enemyProgressIndex]
+                            .afterAnimation +
+                        0.5;
+                    this.enemyProgressIndex++;
                 } else {
                     this.enemyCurrent = JSON.parse(
                         JSON.stringify(
-                            this.enemyProgress[this.enemyProgressIndex - 1]
-                                .img
+                            this.enemyProgress[this.enemyProgressIndex].img
                         )
                     );
                 }
@@ -317,6 +305,7 @@ export default {
         },
     },
     methods: {
+        // 战斗
         fight() {
             this.playerCurrentHp -= 100;
             this.playerCurrentMp -= 100;
@@ -329,6 +318,7 @@ export default {
                 this.enemyCurrentMp = 1000;
             }
         },
+        // 调整速度
         changeSpeed(speed) {
             this.speed = speed;
             clearInterval(this.fightRun);
@@ -337,6 +327,47 @@ export default {
                     ++this.runTime;
                 }, speed);
             }
+        },
+        // 从技能池拿起技能
+        pickSkill(item, $event) {
+            this.targetSkill = JSON.parse(JSON.stringify(item));
+            this.$nextTick(() => {
+                this.$refs.targetSkill.style.cssText =
+                    "top:calc(" +
+                    $event.clientY +
+                    "px - 0.5rem);left:calc(" +
+                    $event.clientX +
+                    "px - 0.5rem);";
+            });
+            document.onmousemove = (e) => {
+                this.$refs.targetSkill.style.cssText =
+                    "top:calc(" +
+                    e.clientY +
+                    "px - 0.5rem);left:calc(" +
+                    e.clientX +
+                    "px - 0.5rem);";
+            };
+        },
+        // 把技能放到进度条上
+        putSkill(index) {
+            if (this.targetSkill) {
+                this.playerProgress.splice(
+                    index + 1,
+                    0,
+                    JSON.parse(JSON.stringify(this.targetSkill))
+                );
+                this.playerProgressLength +=
+                    this.targetSkill.attackAnimation +
+                    this.targetSkill.afterAnimation +
+                    0.5;
+                this.targetSkill = null;
+                document.onmousemove = null;
+            }
+        },
+        //拿着技能时,点击鼠标右键清除当前选中技能(全局)
+        clearTargetSkill() {
+            this.targetSkill = null;
+            document.onmousemove = null;
         },
     },
 };

@@ -183,11 +183,11 @@
           width: 100%;
           height: 0.5rem;
           border-radius: 0.1rem 0 0 0;
-          --redBar: rgba(255, 72, 0, 0.7);
-          --orangeBar: rgba(255, 206, 45, 0.3);
-          background-image: linear-gradient(60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+          --blueBar: rgba(0, 47, 255, 0.7);
+          --aquaBar: rgba(45, 241, 255, 0.3);
+          background-image: linear-gradient(60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
           background-size: 1rem 100%;
-          filter: drop-shadow(0 0 0.1rem orange);
+          filter: drop-shadow(0 0 0.1rem aqua);
           animation: playerProgressBarMove 1s linear infinite;
 
           &::after {
@@ -198,7 +198,7 @@
             width: 100%;
             height: 0.5rem;
             border-radius: 0 0 0 0.1rem;
-            background-image: linear-gradient(-60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+            background-image: linear-gradient(-60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
             background-size: 1rem 100%;
             animation: playerProgressBarMove 1s linear infinite;
           }
@@ -215,7 +215,7 @@
               width: 100%;
               height: 100%;
               border-radius: 0.1rem;
-              box-shadow: 0 0 0.1rem 0.05rem red;
+              box-shadow: 0 0 0.1rem 0.05rem blue;
             }
           }
 
@@ -251,11 +251,11 @@
           width: 100%;
           height: 0.5rem;
           border-radius: 0 0.1rem 0 0;
-          --blueBar: rgba(0, 47, 255, 0.7);
-          --aquaBar: rgba(45, 241, 255, 0.3);
-          background-image: linear-gradient(-60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+          --redBar: rgba(255, 72, 0, 0.7);
+          --orangeBar: rgba(255, 206, 45, 0.3);
+          background-image: linear-gradient(-60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
           background-size: 1rem 100%;
-          filter: drop-shadow(0 0 0.1rem aqua);
+          filter: drop-shadow(0 0 0.1rem orange);
           animation: enemyProgressBarMove 1s linear infinite;
 
           &::after {
@@ -266,7 +266,7 @@
             width: 100%;
             height: 0.5rem;
             border-radius: 0 0 0.1rem 0;
-            background-image: linear-gradient(60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+            background-image: linear-gradient(60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
             background-size: 1rem 100%;
             animation: enemyProgressBarMove 1s linear infinite;
           }
@@ -283,7 +283,7 @@
               width: 100%;
               height: 100%;
               border-radius: 0.1rem;
-              box-shadow: 0 0 0.1rem 0.05rem blue;
+              box-shadow: 0 0 0.1rem 0.05rem red;
             }
           }
 
@@ -377,15 +377,46 @@
       height: 0.8rem;
       border-radius: 0.1rem;
       margin: 0 0.1rem;
-      box-shadow: 0 0 0.1rem #fff8,0 0 0.2rem #fff8 inset;
+      box-shadow: 0 0 0.1rem #fff8, 0 0 0.2rem #fff8 inset;
       display: flex;
       align-items: center;
       justify-content: center;
+
       img {
         width: 100%;
         height: 100%;
         border-radius: 0.1rem;
       }
     }
+  }
+}
+
+
+.targetSkill {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 0.2rem #fff, 0 0 0.3rem #fff inset;
+  filter: drop-shadow(0 0 0.02rem aqua);
+  position: fixed;
+  top: -2rem;
+  left: -2rem;
+  z-index: 101;
+  pointer-events: none;
+  animation: pickSkill .2s ease;
+  @keyframes pickSkill {
+    0%{
+      transform: scale(0);
+    }
+    100%{
+      transform: scale(1);
+    }
+  }
+  img {
+    width: 90%;
+    height: 90%;
   }
 }

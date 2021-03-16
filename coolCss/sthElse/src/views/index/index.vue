@@ -70,7 +70,7 @@
                         @click="itemMove(item, index, $event)"
                     >
                         <img
-                            :src="require('../../assets/' + item.src)"
+                            :src="item.src"
                             alt=""
                             v-if="item.src"
                         />
@@ -81,7 +81,7 @@
 
         <!-- 手持的物品(物品栏/装备栏等) -->
         <div class="targetItem" ref="targetItem" v-if="targetItem.src">
-            <img :src="require('../../assets/' + targetItem.src)" alt="" />
+            <img :src="targetItem.src" alt="" />
         </div>
         <btn cnText="开始" enText="START" />
         <btn cnText="结束" enText="OVER" style="top: 10%" />
@@ -131,7 +131,7 @@ export default {
             canIClose: true, //如果手持物品状态则不允许关闭窗口
             knapsackItemList: [
                 {},
-                { src: "ava.png" },
+                { src: require("../../assets/ava.png") },
                 {},
                 {},
                 {},
@@ -181,7 +181,7 @@ export default {
                 {},
                 {},
                 {},
-                { src: "bbb.png" },
+                { src: require("../../assets/bbb.png") },
                 {},
                 {},
                 {},
