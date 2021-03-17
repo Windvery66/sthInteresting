@@ -51,7 +51,7 @@
                     <div class="progressBarBg">
                         <!-- 当前正在进行的技能弹出提示 -->
                         <div class="progressBarItemCurrent" v-if="playerCurrent">
-                            <img :src="playerCurrent" alt="">
+                            <img :src="playerCurrent.img" alt="">
                         </div>
                     </div>
                     <div class="innerProgressBar">
@@ -69,7 +69,7 @@
                     <div class="progressBarBg">
                         <!-- 当前正在进行的技能弹出提示 -->
                         <div class="progressBarItemCurrent" v-if="enemyCurrent">
-                            <img :src="enemyCurrent" alt="">
+                            <img :src="enemyCurrent.img" alt="">
                         </div>
                     </div>
                     <div class="innerProgressBar">
@@ -91,11 +91,11 @@
             </div>
 
             <button @click="changeSpeed(null)">暂停</button>
-            <button @click="changeSpeed(100)">x1</button>
-            <button @click="changeSpeed(50)">x2</button>
-            <button v-show="enemySpeed" @click="dizz('enemy',1)">眩晕敌方1s</button>
-            <button v-show="enemySpeed" @click="speedCut('enemy',50)">减速敌方50%</button>
-            <button v-show="enemySpeed" @click="speedCut('enemy',0)">恢复敌方速度</button>
+            <button @click="changeSpeed(1)">x1</button>
+            <button @click="changeSpeed(2)">x2</button>
+            <button v-show="wholeSpeedCoefficient" @click="dizz('enemy',1)">眩晕敌方1s</button>
+            <button v-show="wholeSpeedCoefficient" @click="speedCut('enemy',50)">减速敌方50%</button>
+            <button v-show="wholeSpeedCoefficient" @click="speedCut('enemy',0)">恢复敌方速度</button>
 
         </div>
 
@@ -116,6 +116,7 @@ export default {
             enemyFightRun: null, //敌方时间循环函数
             playerSpeed: 100, //我方每帧间隔(毫秒)
             enemySpeed: 100, //敌方每帧间隔(毫秒)
+            wholeSpeedCoefficient: 1, //全局速度系数(最小为1)
             playerSpeedCoefficient: 1, //我方速度系数
             enemySpeedCoefficient: 1, //敌方速度系数
             targetSkill: null, //手持的技能
@@ -152,12 +153,14 @@ export default {
                 {
                     img: require("../../assets/ava.png"),
                     attackAnimation: 0.1,
-                    afterAnimation: 0.1,
+                    afterAnimation: 0.2,
+                    damage:[1],
                 },
                 {
                     img: require("../../assets/bbb.png"),
                     attackAnimation: 0.3,
                     afterAnimation: 0.1,
+                    damage:[0.2,0.3,0.75],
                 },
             ], //所有技能前摇和后摇都至少为0.1s,不然会造成动画不消失的bug(因为每0.1s计算一帧)
             enemyProgressIndex: 0,
@@ -196,10 +199,10 @@ export default {
         this.playerCurrentProgressLength += this.playerProgress[0].attackAnimation;
         this.playerFightRun = setInterval(() => {
             ++this.playerRunTime;
-        }, this.playerSpeed*this.playerSpeedCoefficient);
+        }, this.playerSpeed * this.playerSpeedCoefficient * this.wholeSpeedCoefficient);
         this.enemyFightRun = setInterval(() => {
             ++this.enemyRunTime;
-        }, this.enemySpeed*this.enemySpeedCoefficient);
+        }, this.enemySpeed * this.enemySpeedCoefficient * this.wholeSpeedCoefficient);
     },
     watch: {
         //我方进度条运行中
@@ -250,12 +253,14 @@ export default {
                             .afterAnimation +
                         0.5;
                     this.playerProgressIndex++;
-                } else {
+                } else if (this.playerCurrent == null) {
                     this.playerCurrent = JSON.parse(
                         JSON.stringify(
-                            this.playerProgress[this.playerProgressIndex].img
+                            this.playerProgress[this.playerProgressIndex]
                         )
                     );
+                    //进行战斗计算
+                    this.fight("player", this.playerCurrent);
                 }
             }
         },
@@ -310,12 +315,14 @@ export default {
                             .afterAnimation +
                         0.5;
                     this.enemyProgressIndex++;
-                } else {
+                } else if (this.enemyCurrent == null) {
                     this.enemyCurrent = JSON.parse(
                         JSON.stringify(
-                            this.enemyProgress[this.enemyProgressIndex].img
+                            this.enemyProgress[this.enemyProgressIndex]
                         )
                     );
+                    //进行战斗计算
+                    this.fight("enemy", this.enemyCurrent);
                 }
             }
         },
@@ -323,17 +330,17 @@ export default {
     methods: {
         // 调整速度
         changeSpeed(speed) {
-            this.playerSpeed = speed;
-            this.enemySpeed = speed;
             clearInterval(this.playerFightRun);
             clearInterval(this.enemyFightRun);
+            this.wholeSpeedCoefficient = null;
             if (speed) {
+                this.wholeSpeedCoefficient = 1 / speed;
                 this.playerFightRun = setInterval(() => {
                     ++this.playerRunTime;
-                }, speed * this.playerSpeedCoefficient);
+                }, this.playerSpeed * this.playerSpeedCoefficient * this.wholeSpeedCoefficient);
                 this.enemyFightRun = setInterval(() => {
                     ++this.enemyRunTime;
-                }, speed * this.enemySpeedCoefficient);
+                }, this.enemySpeed * this.enemySpeedCoefficient * this.wholeSpeedCoefficient);
             }
         },
         //眩晕
@@ -342,18 +349,18 @@ export default {
             var that = this;
             if (identity == "enemy") {
                 clearInterval(this.enemyFightRun);
-                setTimeout(()=>{
-                that.enemyFightRun = setInterval(() => {
-                    ++that.enemyRunTime;
-                }, that.enemySpeed*that.enemySpeedCoefficient);
-                },time*1000)
+                setTimeout(() => {
+                    that.enemyFightRun = setInterval(() => {
+                        ++that.enemyRunTime;
+                    }, that.enemySpeed * that.enemySpeedCoefficient * that.wholeSpeedCoefficient);
+                }, time * that.wholeSpeedCoefficient * 1000);
             } else {
                 clearInterval(this.playerFightRun);
-                setTimeout(()=>{
-                that.playerFightRun = setInterval(() => {
-                    ++that.playerRunTime;
-                }, that.playerSpeed*that.playerSpeedCoefficient);
-                },time*1000)
+                setTimeout(() => {
+                    that.playerFightRun = setInterval(() => {
+                        ++that.playerRunTime;
+                    }, that.playerSpeed * that.playerSpeedCoefficient * that.wholeSpeedCoefficient);
+                }, time * that.wholeSpeedCoefficient * 1000);
             }
         },
         //减速
@@ -362,17 +369,20 @@ export default {
         speedCut(identity, percent) {
             if (identity == "enemy") {
                 clearInterval(this.enemyFightRun);
-                this.enemySpeedCoefficient = percent?1/(1-(percent/100)):1;
+                this.enemySpeedCoefficient = percent
+                    ? 1 / (1 - percent / 100)
+                    : 1;
                 this.enemyFightRun = setInterval(() => {
                     ++this.enemyRunTime;
-                }, this.enemySpeed * this.enemySpeedCoefficient);
-                console.log(this.enemySpeedCoefficient)
+                }, this.enemySpeed * this.enemySpeedCoefficient * this.wholeSpeedCoefficient);
             } else {
                 clearInterval(this.playerFightRun);
-                this.playerSpeedCoefficient = percent?1/(1-(percent/100)):1;
+                this.playerSpeedCoefficient = percent
+                    ? 1 / (1 - percent / 100)
+                    : 1;
                 this.playerFightRun = setInterval(() => {
                     ++this.playerRunTime;
-                }, this.playerSpeed * this.playerSpeedCoefficient);
+                }, this.playerSpeed * this.playerSpeedCoefficient * this.wholeSpeedCoefficient);
             }
         },
         // 从技能池拿起技能
@@ -415,6 +425,12 @@ export default {
         clearTargetSkill() {
             this.targetSkill = null;
             document.onmousemove = null;
+        },
+        //战斗
+        fight(identity, skill) {
+            if(identity == "player"){
+                console.log(skill)
+            }
         },
     },
 };

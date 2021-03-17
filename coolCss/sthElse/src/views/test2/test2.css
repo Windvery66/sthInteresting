@@ -261,6 +261,12 @@
 #test2 .progressBars .progressBar.enemy .progressBarItem {
   float: left;
 }
+#test2 .progressBars .progressBar.enemy .attackAnimation {
+  background-image: linear-gradient(-90deg, transparent, rgba(255, 255, 255, 0.5)) !important;
+}
+#test2 .progressBars .progressBar.enemy .afterAnimation {
+  background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5)) !important;
+}
 @keyframes enemyProgressBarMove {
   0% {
     background-position-x: 0.3rem;
@@ -303,11 +309,11 @@
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem .attackAnimation {
   height: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem .afterAnimation {
   height: 0.8rem;
-  background-color: rgba(160, 160, 160, 0.3);
+  background-image: linear-gradient(-90deg, transparent, rgba(0, 0, 0, 0.5));
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem img {
   width: 0.5rem;
