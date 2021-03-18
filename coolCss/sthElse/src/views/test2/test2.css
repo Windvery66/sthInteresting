@@ -166,7 +166,7 @@
   border-radius: 0.1rem 0 0 0;
   --blueBar: rgba(0, 47, 255, 0.7);
   --aquaBar: rgba(45, 241, 255, 0.3);
-  background-image: linear-gradient(60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+  background-image: linear-gradient(60deg, var(--blueBar) 33.33%, transparent 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
   background-size: 1rem 100%;
   filter: drop-shadow(0 0 0.1rem aqua);
   animation: playerProgressBarMove 1s linear infinite;
@@ -179,7 +179,7 @@
   width: 100%;
   height: 0.5rem;
   border-radius: 0 0 0 0.1rem;
-  background-image: linear-gradient(-60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, var(--aquaBar) 66.66%, var(--blueBar) 66.66%);
+  background-image: linear-gradient(-60deg, var(--blueBar) 33.33%, var(--aquaBar) 33.33%, transparent 66.66%, var(--blueBar) 66.66%);
   background-size: 1rem 100%;
   animation: playerProgressBarMove 1s linear infinite;
 }
@@ -224,7 +224,7 @@
   border-radius: 0 0.1rem 0 0;
   --redBar: rgba(255, 72, 0, 0.7);
   --orangeBar: rgba(255, 206, 45, 0.3);
-  background-image: linear-gradient(-60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+  background-image: linear-gradient(-60deg, var(--redBar) 33.33%, transparent 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
   background-size: 1rem 100%;
   filter: drop-shadow(0 0 0.1rem orange);
   animation: enemyProgressBarMove 1s linear infinite;
@@ -237,7 +237,7 @@
   width: 100%;
   height: 0.5rem;
   border-radius: 0 0 0.1rem 0;
-  background-image: linear-gradient(60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, var(--orangeBar) 66.66%, var(--redBar) 66.66%);
+  background-image: linear-gradient(60deg, var(--redBar) 33.33%, var(--orangeBar) 33.33%, transparent 66.66%, var(--redBar) 66.66%);
   background-size: 1rem 100%;
   animation: enemyProgressBarMove 1s linear infinite;
 }
@@ -262,10 +262,10 @@
   float: left;
 }
 #test2 .progressBars .progressBar.enemy .attackAnimation {
-  background-image: linear-gradient(-90deg, transparent, rgba(255, 255, 255, 0.5)) !important;
+  background-image: linear-gradient(-90deg, transparent, rgba(255, 0, 0, 0.7)) !important;
 }
 #test2 .progressBars .progressBar.enemy .afterAnimation {
-  background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5)) !important;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 166, 0, 0.7)) !important;
 }
 @keyframes enemyProgressBarMove {
   0% {
@@ -309,15 +309,16 @@
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem .attackAnimation {
   height: 0.8rem;
-  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+  background-image: linear-gradient(90deg, transparent, rgba(0, 0, 255, 0.7));
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem .afterAnimation {
   height: 0.8rem;
-  background-image: linear-gradient(-90deg, transparent, rgba(0, 0, 0, 0.5));
+  background-image: linear-gradient(-90deg, transparent, rgba(0, 255, 255, 0.7));
 }
 #test2 .progressBars .progressBar .innerProgressBar .progressBarItems .progressBarItem img {
   width: 0.5rem;
   height: 0.8rem;
+  filter: drop-shadow(0 0 0.05rem #fffb);
 }
 #test2 .skillPool {
   position: absolute;

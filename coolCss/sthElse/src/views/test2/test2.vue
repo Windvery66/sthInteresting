@@ -93,6 +93,8 @@
             <button @click="changeSpeed(null)">暂停</button>
             <button @click="changeSpeed(1)">x1</button>
             <button @click="changeSpeed(2)">x2</button>
+            <!-- 眩晕机制:每个眩晕独立计算时长,不叠加,当全局没有眩晕时长时结束眩晕,否则一直眩晕 -->
+            <button v-show="wholeSpeedCoefficient" @click="dizz('enemy',5)">眩晕敌方5s</button>
             <button v-show="wholeSpeedCoefficient" @click="dizz('enemy',1)">眩晕敌方1s</button>
             <button v-show="wholeSpeedCoefficient" @click="speedCut('enemy',50)">减速敌方50%</button>
             <button v-show="wholeSpeedCoefficient" @click="speedCut('enemy',0)">恢复敌方速度</button>
@@ -110,6 +112,7 @@
 export default {
     data() {
         return {
+            dizzTime: 0, //眩晕时长(秒)
             playerRunTime: 0, //我方帧数(每帧=0.1rem)
             enemyRunTime: 0, //敌方帧数(每帧=0.1rem)
             playerFightRun: null, //我方时间循环函数
@@ -154,13 +157,13 @@ export default {
                     img: require("../../assets/ava.png"),
                     attackAnimation: 0.1,
                     afterAnimation: 0.2,
-                    damage:[1],
+                    damage: [1],
                 },
                 {
                     img: require("../../assets/bbb.png"),
                     attackAnimation: 0.3,
                     afterAnimation: 0.1,
-                    damage:[0.2,0.3,0.75],
+                    damage: [0.2, 0.3, 0.75],
                 },
             ], //所有技能前摇和后摇都至少为0.1s,不然会造成动画不消失的bug(因为每0.1s计算一帧)
             enemyProgressIndex: 0,
@@ -347,19 +350,26 @@ export default {
         //params:敌/我,眩晕时长(s)
         dizz(identity, time) {
             var that = this;
+            this.dizzTime += time;
             if (identity == "enemy") {
                 clearInterval(this.enemyFightRun);
                 setTimeout(() => {
-                    that.enemyFightRun = setInterval(() => {
-                        ++that.enemyRunTime;
-                    }, that.enemySpeed * that.enemySpeedCoefficient * that.wholeSpeedCoefficient);
+                    that.dizzTime -= time;
+                    if (that.dizzTime == 0) {
+                        that.enemyFightRun = setInterval(() => {
+                            ++that.enemyRunTime;
+                        }, that.enemySpeed * that.enemySpeedCoefficient * that.wholeSpeedCoefficient);
+                    }
                 }, time * that.wholeSpeedCoefficient * 1000);
             } else {
                 clearInterval(this.playerFightRun);
                 setTimeout(() => {
-                    that.playerFightRun = setInterval(() => {
-                        ++that.playerRunTime;
-                    }, that.playerSpeed * that.playerSpeedCoefficient * that.wholeSpeedCoefficient);
+                    that.dizzTime -= time;
+                    if (that.dizzTime == 0) {
+                        that.playerFightRun = setInterval(() => {
+                            ++that.playerRunTime;
+                        }, that.playerSpeed * that.playerSpeedCoefficient * that.wholeSpeedCoefficient);
+                    }
                 }, time * that.wholeSpeedCoefficient * 1000);
             }
         },
@@ -428,8 +438,8 @@ export default {
         },
         //战斗
         fight(identity, skill) {
-            if(identity == "player"){
-                console.log(skill)
+            if (identity == "player") {
+                console.log(skill);
             }
         },
     },
